@@ -1,0 +1,28 @@
+@import "../../variables";
+
+.container {
+  height: 80vh;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  h1 {
+    font-size: 10rem;
+    font-weight: normal;
+    letter-spacing: 40px;
+    margin: 0;
+  }
+
+  h5 {
+    font-size: 1.6rem;
+    margin: .8rem 0;
+  }
+
+  p {
+    margin: 0;
+    max-width: 500px;
+    color: $color-secondary-element;
+  }
+}
