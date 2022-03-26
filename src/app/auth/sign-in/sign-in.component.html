@@ -1,1 +1,67 @@
-<p>sign-in works!</p>
+<div class="container vh-100">
+  <img
+    class="cover min-width-0 flex-5"
+    src="assets/images/sign-in-background.jpg"
+    alt=""/>
+  <div class="sign-in-content center flex-column flex-3">
+    <section class="w-100 flex justify-between align-ends">
+      <h1>
+        Welcome<br/>back
+      </h1>
+      <img
+        src="assets/icons/logo.svg"
+        width="120"
+        height="120"
+        alt=""/>
+    </section>
+
+    <div class="mb-42"></div>
+
+    <form [formGroup]="form" (ngSubmit)="onFormSubmit()" class="w-100">
+      <nz-form-item>
+        <nz-form-control [nzErrorTip]="emailErrorTemplate">
+          <nz-input-group nzPrefixIcon="mail">
+            <input type="text" nz-input placeholder="Email" formControlName="email"/>
+          </nz-input-group>
+          <ng-template #emailErrorTemplate let-control>
+            <ng-container *ngIf="control.hasError('required')">Field is required</ng-container>
+            <ng-container *ngIf="control.hasError('email')">Invalid email</ng-container>
+            <ng-container *ngIf="control.hasError('maxlength')">Password is too long</ng-container>
+          </ng-template>
+        </nz-form-control>
+      </nz-form-item>
+
+      <nz-form-item>
+        <nz-form-control [nzErrorTip]="passwordErrorTemplate">
+          <nz-input-group [nzSuffix]="passwordSuffix" nzPrefixIcon="lock">
+            <input
+              [type]="passwordVisible ? 'text' : 'password'"
+              nz-input
+              formControlName="password"
+              placeholder="Password"/>
+          </nz-input-group>
+          <ng-template #passwordErrorTemplate let-control>
+            <ng-container *ngIf="control.hasError('required')">Field is required</ng-container>
+            <ng-container *ngIf="control.hasError('minlength')">Password is too short</ng-container>
+            <ng-container *ngIf="control.hasError('maxlength')">Password is too long</ng-container>
+          </ng-template>
+        </nz-form-control>
+        <ng-template #passwordSuffix>
+          <i
+            class="pointer"
+            nz-icon [nzType]="passwordVisible ? 'eye-invisible' : 'eye'"
+            (click)="passwordVisible = !passwordVisible">
+          </i>
+        </ng-template>
+      </nz-form-item>
+
+      <nz-form-item class="mt-24">
+        <nz-form-control>
+          <button nz-button nzType="primary" class="w-100" type="submit">
+            Sign in
+          </button>
+        </nz-form-control>
+      </nz-form-item>
+    </form>
+  </div>
+</div>

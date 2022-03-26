@@ -1,0 +1,29 @@
+.flex {
+  display: flex;
+}
+
+.justify-between {
+  justify-content: space-between;
+}
+
+.align-end {
+  align-items: end;
+}
+
+.center {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.flex-column {
+  flex-direction: column;
+}
+
+
+@for $i from 0 through 50 {
+  .flex-#{$i} {
+    flex: $i;
+  }
+}
+
