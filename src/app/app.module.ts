@@ -7,19 +7,19 @@ import { NZ_I18N } from 'ng-zorro-antd/i18n';
 import { en_US } from 'ng-zorro-antd/i18n';
 import { registerLocaleData } from '@angular/common';
 import en from '@angular/common/locales/en';
-import {FormsModule} from '@angular/forms';
+import { FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import {NZ_CONFIG} from "ng-zorro-antd/core/config";
-import {ngZorroConfig} from "./values/nz-config";
+import { NZ_CONFIG } from 'ng-zorro-antd/core/config';
+import { ngZorroConfig } from './values/nz-config';
+import { NgxsModule } from '@ngxs/store';
 
 registerLocaleData(en);
 
 @NgModule({
-  declarations: [
-    AppComponent,
-  ],
+  declarations: [AppComponent],
   imports: [
+    NgxsModule.forRoot([], { developmentMode: true }),
     BrowserModule,
     AppRoutingModule,
     FormsModule,
@@ -30,6 +30,6 @@ registerLocaleData(en);
     { provide: NZ_I18N, useValue: en_US },
     { provide: NZ_CONFIG, useValue: ngZorroConfig },
   ],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {}

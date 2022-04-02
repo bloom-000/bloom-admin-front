@@ -1,3 +1,4 @@
+<!--suppress TypeScriptUnresolvedFunction -->
 <div class="container vh-100">
   <img
     class="cover min-width-0 flex-5"
@@ -31,7 +32,7 @@
         </nz-form-control>
       </nz-form-item>
 
-      <nz-form-item>
+      <nz-form-item class="mt-8">
         <nz-form-control [nzErrorTip]="passwordErrorTemplate">
           <nz-input-group [nzSuffix]="passwordSuffix" nzPrefixIcon="lock">
             <input
@@ -55,7 +56,7 @@
         </ng-template>
       </nz-form-item>
 
-      <nz-form-item class="mt-24">
+      <nz-form-item class="mt-32">
         <nz-form-control>
           <button nz-button nzType="primary" class="w-100" type="submit">
             Sign in

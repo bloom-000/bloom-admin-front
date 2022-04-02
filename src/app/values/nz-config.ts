@@ -1,4 +1,3 @@
-import {NzConfig} from "ng-zorro-antd/core/config";
+import { NzConfig } from 'ng-zorro-antd/core/config';
 
-export const ngZorroConfig: NzConfig = {
-};
+export const ngZorroConfig: NzConfig = {};
