@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Store } from '@ngxs/store';
+import { ActionSignIn } from './state/sign-in.actions';
 
 @Component({
   selector: 'app-sign-in',
@@ -7,7 +9,10 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
   styleUrls: ['./sign-in.component.scss'],
 })
 export class SignInComponent implements OnInit {
-  constructor(private readonly formBuilder: FormBuilder) {}
+  constructor(
+    private readonly formBuilder: FormBuilder,
+    private readonly store: Store,
+  ) {}
 
   form!: FormGroup;
   passwordVisible = false;
@@ -32,7 +37,12 @@ export class SignInComponent implements OnInit {
 
   onFormSubmit() {
     if (this.form.valid) {
-      console.log('submit', this.form.value);
+      this.store.dispatch(
+        ActionSignIn.signInPressed({
+          email: this.form.value.email,
+          password: this.form.value.password,
+        }),
+      );
     } else {
       Object.values(this.form.controls).forEach((control) => {
         if (control.invalid) {

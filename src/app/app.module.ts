@@ -8,11 +8,10 @@ import { en_US } from 'ng-zorro-antd/i18n';
 import { registerLocaleData } from '@angular/common';
 import en from '@angular/common/locales/en';
 import { FormsModule } from '@angular/forms';
-import { HttpClientModule } from '@angular/common/http';
+import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { NZ_CONFIG } from 'ng-zorro-antd/core/config';
-import { ngZorroConfig } from './values/nz-config';
 import { NgxsModule } from '@ngxs/store';
+import { AuthInterceptor } from './interceptors/token.interceptor';
 
 registerLocaleData(en);
 
@@ -28,7 +27,11 @@ registerLocaleData(en);
   ],
   providers: [
     { provide: NZ_I18N, useValue: en_US },
-    { provide: NZ_CONFIG, useValue: ngZorroConfig },
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: AuthInterceptor,
+      multi: true,
+    },
   ],
   bootstrap: [AppComponent],
 })
