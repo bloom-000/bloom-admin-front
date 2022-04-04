@@ -10,7 +10,6 @@ import { HttpClientModule } from '@angular/common/http';
 import { AuthService } from '../../data/services/auth.service';
 import { SignInState } from './state/sign-in.state';
 import { SignInComponent } from './sign-in.component';
-import { AuthRoutingModule } from '../routing/auth/auth-routing.module';
 import { NzNotificationModule } from 'ng-zorro-antd/notification';
 
 @NgModule({
@@ -20,7 +19,6 @@ import { NzNotificationModule } from 'ng-zorro-antd/notification';
     NgxsModule.forFeature([SignInState]),
     CommonModule,
     HttpClientModule,
-    AuthRoutingModule,
     NzButtonModule,
     ReactiveFormsModule,
     NzInputModule,

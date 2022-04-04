@@ -13,7 +13,10 @@ const routes: Routes = [
   },
   {
     path: '',
-    component: PageNotFoundComponent,
+    loadChildren: () =>
+      import('./modules/routing/admin-dashboard/admin-dashboard.module').then(
+        (res) => res.AdminDashboardModule,
+      ),
     canActivate: [AuthGuard],
   },
   {

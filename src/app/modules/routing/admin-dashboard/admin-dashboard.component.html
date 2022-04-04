@@ -1,0 +1,99 @@
+<nz-layout>
+  <nz-sider nzWidth="200px" class="slider">
+    <div class="header">
+      <img src="assets/icons/logo.svg"
+           width="42"
+           height="42"
+           class="pb-5"
+           alt="">
+      <div class="align-self-center pl-10 semi-bold">app name</div>
+    </div>
+    <ul nz-menu nzMode="inline">
+      <li class="nav-section-header">Application</li>
+      <li nz-menu-item routerLink="dashboard">
+        <img src="assets/icons/dashboard.svg"
+             width="24"
+             height="24"
+             alt=""
+             class="pr-10">
+        <span>Dashboard</span>
+      </li>
+      <li class="nav-section-header">Content</li>
+      <li nz-menu-item routerLink="products">
+        <img src="assets/icons/product.svg"
+             width="24"
+             height="24"
+             alt=""
+             class="pr-10">
+        <span>Products</span>
+      </li>
+      <li nz-menu-item routerLink="categories">
+        <img src="assets/icons/category.svg"
+             width="24"
+             height="24"
+             alt=""
+             class="pr-10">
+        <span>Categories</span>
+      </li>
+      <li class="nav-section-header">Activity</li>
+      <li nz-menu-item routerLink="customers">
+        <img src="assets/icons/user.svg"
+             width="24"
+             height="24"
+             alt=""
+             class="pr-10">
+        <span>Customers</span>
+      </li>
+      <li class="nav-section-header">Marketing</li>
+      <li nz-menu-item routerLink="orders">
+        <img src="assets/icons/shopping-cart.svg"
+             width="24"
+             height="24"
+             alt=""
+             class="pr-10">
+        <span>Orders</span>
+      </li>
+      <li nz-menu-item routerLink="coupons">
+        <img src="assets/icons/coupon.svg"
+             width="24"
+             height="24"
+             alt=""
+             class="pr-10">
+        <span>Coupons</span>
+      </li>
+      <li class="nav-section-header">Contact</li>
+      <li nz-menu-item routerLink="feedback">
+        <img src="assets/icons/feedback.svg"
+             width="24"
+             height="24"
+             alt=""
+             class="pr-10">
+        <span>Feedback</span>
+      </li>
+      <li nz-menu-item routerLink="contact-requests">
+        <img src="assets/icons/message.svg"
+             width="24"
+             height="24"
+             alt=""
+             class="pr-10">
+        <span>Contact requests</span>
+      </li>
+      <li class="nav-section-header">Analytics</li>
+      <li nz-menu-item routerLink="user-activity">
+        <img src="assets/icons/chart-bar.svg"
+             width="24"
+             height="24"
+             alt=""
+             class="pr-10">
+        <span>User activity</span>
+      </li>
+    </ul>
+  </nz-sider>
+  <nz-layout>
+    <nz-content>
+      <div class="inner-content">
+        <router-outlet></router-outlet>
+      </div>
+    </nz-content>
+  </nz-layout>
+</nz-layout>
