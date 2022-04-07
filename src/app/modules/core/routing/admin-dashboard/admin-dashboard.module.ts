@@ -15,6 +15,8 @@ import { NzIconModule } from 'ng-zorro-antd/icon';
 import { NzBreadCrumbModule } from 'ng-zorro-antd/breadcrumb';
 import { AdminDashboardComponent } from './admin-dashboard.component';
 import { ComponentsModule } from '../../components/components.module';
+import { CommonModule } from '@angular/common';
+import { NzTabsModule } from 'ng-zorro-antd/tabs';
 
 @NgModule({
   declarations: [
@@ -36,6 +38,8 @@ import { ComponentsModule } from '../../components/components.module';
     NzIconModule,
     NzBreadCrumbModule,
     ComponentsModule,
+    CommonModule,
+    NzTabsModule,
   ],
 })
 export class AdminDashboardModule {}

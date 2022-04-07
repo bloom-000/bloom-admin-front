@@ -1,6 +1,6 @@
 @for $i from 0 through 20 {
   .fs-#{$i} {
-    font-size: .2 * $i rem;
+    font-size: .2rem * $i;
   }
 }
 
