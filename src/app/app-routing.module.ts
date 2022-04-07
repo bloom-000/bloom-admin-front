@@ -7,16 +7,16 @@ const routes: Routes = [
   {
     path: 'auth',
     loadChildren: () =>
-      import('./modules/routing/auth/auth.module').then(
+      import('./modules/core/routing/auth/auth.module').then(
         (res) => res.AuthModule,
       ),
   },
   {
     path: '',
     loadChildren: () =>
-      import('./modules/routing/admin-dashboard/admin-dashboard.module').then(
-        (res) => res.AdminDashboardModule,
-      ),
+      import(
+        './modules/core/routing/admin-dashboard/admin-dashboard.module'
+      ).then((res) => res.AdminDashboardModule),
     canActivate: [AuthGuard],
   },
   {

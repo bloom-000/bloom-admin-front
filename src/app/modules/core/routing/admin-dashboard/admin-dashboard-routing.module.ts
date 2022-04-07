@@ -1,15 +1,15 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { AdminDashboardComponent } from './admin-dashboard.component';
-import { DashboardComponent } from '../../dashboard/dashboard.component';
-import { ProductsComponent } from '../../products/products.component';
-import { CategoriesComponent } from '../../categories/categories.component';
-import { UserActivityComponent } from '../../user-activity/user-activity.component';
-import { ContactRequestsComponent } from '../../contact-requests/contact-requests.component';
-import { FeedbackComponent } from '../../feedback/feedback.component';
-import { CouponsComponent } from '../../coupons/coupons.component';
-import { OrdersComponent } from '../../orders/orders.component';
-import { CustomersComponent } from '../../customers/customers.component';
+import { DashboardComponent } from '../../../dashboard/dashboard.component';
+import { ProductsComponent } from '../../../products/products.component';
+import { CategoriesComponent } from '../../../categories/categories.component';
+import { UserActivityComponent } from '../../../user-activity/user-activity.component';
+import { ContactRequestsComponent } from '../../../contact-requests/contact-requests.component';
+import { FeedbackComponent } from '../../../feedback/feedback.component';
+import { CouponsComponent } from '../../../coupons/coupons.component';
+import { OrdersComponent } from '../../../orders/orders.component';
+import { CustomersComponent } from '../../../customers/customers.component';
 
 const routes: Routes = [
   {
