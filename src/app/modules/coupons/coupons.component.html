@@ -2,4 +2,45 @@
   <nz-breadcrumb-item>Dashboard</nz-breadcrumb-item>
   <nz-breadcrumb-item>Coupons</nz-breadcrumb-item>
 </nz-breadcrumb>
-<p>coupons</p>
+
+<div class="flex">
+  <nz-input-group class="flex-1 mr-24" [nzSuffix]="suffixIconSearch">
+    <input type="text" nz-input placeholder="Search coupons..."/>
+  </nz-input-group>
+  <ng-template #suffixIconSearch>
+    <i nz-icon nzType="search"></i>
+  </ng-template>
+
+  <button nz-button  nzType="primary" class="btn-bg-secondary">
+    New coupon
+  </button>
+</div>
+
+<nz-table
+  class="mb-32 mt-12"
+  nzShowPagination>
+  <thead>
+  <tr>
+    <th>Code</th>
+    <th>Type</th>
+    <th>Discount</th>
+    <th>Status</th>
+    <th>Start date</th>
+    <th>End date</th>
+    <th nzWidth="3%"></th>
+  </tr>
+  </thead>
+  <tbody>
+  <tr *ngFor="let data of [1,2,3,4,5,6,7,8]">
+    <td>Code name</td>
+    <td>Percentage</td>
+    <td>{{.2 | percent}}</td>
+    <td>Enabled</td>
+    <td>15 May, 2021</td>
+    <td>20 May, 2021</td>
+    <td>
+      <app-menu-button></app-menu-button>
+    </td>
+  </tr>
+  </tbody>
+</nz-table>
