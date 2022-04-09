@@ -49,21 +49,7 @@
     <td>43 in stock</td>
     <td>{{ 12 | currency }}</td>
     <td>
-      <nz-button-group>
-        <button
-          nz-button
-          nzType="link"
-          nz-dropdown [nzDropdownMenu]="menu4">
-          <i nz-icon nzType="more" class="color-primary fs-6"></i>
-        </button>
-      </nz-button-group>
-      <nz-dropdown-menu #menu4="nzDropdownMenu">
-        <ul nz-menu>
-          <li nz-menu-item>Show details</li>
-          <li nz-menu-item>Edit</li>
-          <li nz-menu-item>Delete</li>
-        </ul>
-      </nz-dropdown-menu>
+      <app-menu-button></app-menu-button>
     </td>
   </tr>
   </tbody>

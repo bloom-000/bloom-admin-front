@@ -2,4 +2,44 @@
   <nz-breadcrumb-item>Dashboard</nz-breadcrumb-item>
   <nz-breadcrumb-item>Customers</nz-breadcrumb-item>
 </nz-breadcrumb>
-<p>customers</p>
+
+<nz-input-group class="flex-1 mr-24" [nzSuffix]="suffixIconSearch">
+  <input type="text" nz-input placeholder="Search customers..."/>
+</nz-input-group>
+<ng-template #suffixIconSearch>
+  <i nz-icon nzType="search"></i>
+</ng-template>
+
+<nz-table
+  class="mb-32 mt-12"
+  nzShowPagination>
+  <thead>
+  <tr>
+    <th>Customer</th>
+    <th nzWidth="12%">Registered</th>
+    <th nzWidth="12%">Spent</th>
+    <th nzWidth="3%"></th>
+  </tr>
+  </thead>
+  <tbody>
+  <tr *ngFor="let data of [1,1,1,1,1,1]">
+    <td>
+      <div class="flex">
+        <img
+          alt=""
+          class="br-x customer-image"
+          src="assets/images/sign-in-background.jpg"/>
+        <div class="flex-column align-start justify-center ml-12">
+          <p class="m-0 fs-5 semi-bold">Customer name</p>
+          <p class="m-0 fs-4 element-secondary">email@gmail.com</p>
+        </div>
+      </div>
+    </td>
+    <td>15 May, 2021</td>
+    <td>{{43 | currency}}</td>
+    <td>
+      <app-menu-button></app-menu-button>
+    </td>
+  </tr>
+  </tbody>
+</nz-table>
