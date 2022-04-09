@@ -1,0 +1,15 @@
+<nz-button-group>
+  <button
+    nz-button
+    nzType="link"
+    nz-dropdown [nzDropdownMenu]="dropdownMenu">
+    <i nz-icon nzType="more" class="menu-button"></i>
+  </button>
+</nz-button-group>
+<nz-dropdown-menu #dropdownMenu="nzDropdownMenu">
+  <ul nz-menu>
+    <li nz-menu-item>Show details</li>
+    <li nz-menu-item>Edit</li>
+    <li nz-menu-item>Delete</li>
+  </ul>
+</nz-dropdown-menu>

@@ -2,4 +2,40 @@
   <nz-breadcrumb-item>Dashboard</nz-breadcrumb-item>
   <nz-breadcrumb-item>Categories</nz-breadcrumb-item>
 </nz-breadcrumb>
-<p>categories</p>
+
+<div class="flex">
+  <nz-input-group class="flex-1 mr-24" [nzSuffix]="suffixIconSearch">
+    <input type="text" nz-input placeholder="Search categories..."/>
+  </nz-input-group>
+  <ng-template #suffixIconSearch>
+    <i nz-icon nzType="search"></i>
+  </ng-template>
+
+  <button nz-button nzType="primary" class="btn-bg-secondary">
+    New category
+  </button>
+</div>
+
+<nz-table
+  class="mb-32 mt-12"
+  nzShowPagination
+  nzShowSizeChanger>
+  <thead>
+  <tr>
+    <th>Category</th>
+    <th nzWidth="10%">Items</th>
+    <th nzWidth="3%"></th>
+  </tr>
+  </thead>
+  <tbody>
+  <tr *ngFor="let data of [1,1,1,1,1,1]">
+    <td class="mb-2">
+      Product name
+    </td>
+    <td>43</td>
+    <td>
+      <app-menu-button></app-menu-button>
+    </td>
+  </tr>
+  </tbody>
+</nz-table>
