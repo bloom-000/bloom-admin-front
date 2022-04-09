@@ -10,6 +10,11 @@ import { FeedbackComponent } from '../../../feedback/feedback.component';
 import { CouponsComponent } from '../../../coupons/coupons.component';
 import { OrdersComponent } from '../../../orders/orders.component';
 import { CustomersComponent } from '../../../customers/customers.component';
+import { NewProductComponent } from '../../../new-product/new-product.component';
+import { NewCategoryComponent } from '../../../new-category/new-category.component';
+import { CustomerComponent } from '../../../customer/customer.component';
+import { OrderComponent } from '../../../order/order.component';
+import { NewCouponComponent } from '../../../new-coupon/new-coupon.component';
 
 const routes: Routes = [
   {
@@ -26,6 +31,11 @@ const routes: Routes = [
       { path: 'feedback', component: FeedbackComponent },
       { path: 'contact-requests', component: ContactRequestsComponent },
       { path: 'user-activity', component: UserActivityComponent },
+      { path: 'products/new', component: NewProductComponent },
+      { path: 'categories/new', component: NewCategoryComponent },
+      { path: 'customers/customer', component: CustomerComponent },
+      { path: 'orders/order', component: OrderComponent },
+      { path: 'coupons/new', component: NewCouponComponent },
     ],
   },
 ];

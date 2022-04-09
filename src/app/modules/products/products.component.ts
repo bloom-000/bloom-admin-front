@@ -15,7 +15,6 @@ interface Data {
 })
 export class ProductsComponent {
   checked = false;
-  loading = false;
   indeterminate = false;
   listOfData: readonly Data[] = [];
   listOfCurrentPageData: readonly Data[] = [];
@@ -59,7 +58,6 @@ export class ProductsComponent {
   }
 
   sendRequest(): void {
-    this.loading = true;
     const requestData = this.listOfData.filter((data) =>
       this.setOfCheckedId.has(data.id),
     );
@@ -67,7 +65,6 @@ export class ProductsComponent {
     setTimeout(() => {
       this.setOfCheckedId.clear();
       this.refreshCheckedStatus();
-      this.loading = false;
     }, 1000);
   }
 

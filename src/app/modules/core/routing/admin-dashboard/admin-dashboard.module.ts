@@ -24,6 +24,11 @@ import { NzOverflowModule } from 'ng-zorro-antd/cdk/overflow';
 import { NzDropDownModule } from 'ng-zorro-antd/dropdown';
 import { NzInputModule } from 'ng-zorro-antd/input';
 import { NzGridModule } from 'ng-zorro-antd/grid';
+import { NewProductComponent } from '../../../new-product/new-product.component';
+import { NewCategoryComponent } from '../../../new-category/new-category.component';
+import { CustomerComponent } from '../../../customer/customer.component';
+import { OrderComponent } from '../../../order/order.component';
+import { NewCouponComponent } from '../../../new-coupon/new-coupon.component';
 
 @NgModule({
   declarations: [
@@ -37,6 +42,11 @@ import { NzGridModule } from 'ng-zorro-antd/grid';
     ProductsComponent,
     OrdersComponent,
     UserActivityComponent,
+    NewProductComponent,
+    NewCategoryComponent,
+    CustomerComponent,
+    OrderComponent,
+    NewCouponComponent,
   ],
   imports: [
     AdminDashboardRoutingModule,
