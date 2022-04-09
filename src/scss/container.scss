@@ -1,9 +1,19 @@
 @import "variables";
 
-.background-secondary-container {
+.bg-secondary-container {
   background-color: $color-secondary-container;
+}
+
+.color-primary {
+  color: $color-primary;
 }
 
 .element-secondary {
   color: $color-secondary-element;
+}
+
+.btn-bg-secondary {
+  background-color: $color-secondary;
+  border-color: $color-secondary;
+  color: black;
 }

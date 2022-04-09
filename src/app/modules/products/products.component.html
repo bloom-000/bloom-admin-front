@@ -2,4 +2,69 @@
   <nz-breadcrumb-item>Dashboard</nz-breadcrumb-item>
   <nz-breadcrumb-item>Products</nz-breadcrumb-item>
 </nz-breadcrumb>
-<p>products</p>
+
+<div class="flex">
+  <nz-input-group class="flex-1 mr-24" [nzSuffix]="suffixIconSearch">
+    <input type="text" nz-input placeholder="Search products..."/>
+  </nz-input-group>
+  <ng-template #suffixIconSearch>
+    <i nz-icon nzType="search"></i>
+  </ng-template>
+
+  <button nz-button  nzType="primary" class="btn-bg-secondary">
+    New product
+  </button>
+</div>
+
+<nz-table
+  class="mb-32 mt-12"
+  nzShowPagination
+  nzShowSizeChanger
+  [nzData]="listOfData"
+  (nzCurrentPageDataChange)="onCurrentPageDataChange($event)">
+  <thead>
+  <tr>
+    <th>Product</th>
+    <th nzWidth="10%">Category</th>
+    <th nzWidth="10%">Stock</th>
+    <th nzWidth="10%">Price</th>
+    <th nzWidth="3%"></th>
+  </tr>
+  </thead>
+  <tbody>
+  <tr *ngFor="let data of listOfData">
+    <td>
+      <div class="flex">
+        <img
+          alt=""
+          class="br-x product-image"
+          src="assets/images/sign-in-background.jpg"/>
+        <div class="flex-column align-start justify-center ml-12">
+          <p class="mb-2 fs-5 semi-bold">Product name</p>
+          <p class="m-0 fs-4 element-secondary">Product description</p>
+        </div>
+      </div>
+    </td>
+    <td>Face Care</td>
+    <td>43 in stock</td>
+    <td>{{ 12 | currency }}</td>
+    <td>
+      <nz-button-group>
+        <button
+          nz-button
+          nzType="link"
+          nz-dropdown [nzDropdownMenu]="menu4">
+          <i nz-icon nzType="more" class="color-primary fs-6"></i>
+        </button>
+      </nz-button-group>
+      <nz-dropdown-menu #menu4="nzDropdownMenu">
+        <ul nz-menu>
+          <li nz-menu-item>Show details</li>
+          <li nz-menu-item>Edit</li>
+          <li nz-menu-item>Delete</li>
+        </ul>
+      </nz-dropdown-menu>
+    </td>
+  </tr>
+  </tbody>
+</nz-table>

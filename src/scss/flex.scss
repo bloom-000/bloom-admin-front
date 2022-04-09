@@ -6,8 +6,16 @@
   justify-content: space-between;
 }
 
+.justify-center {
+  justify-content: center;
+}
+
 .align-end {
   align-items: end;
+}
+
+.align-start {
+  align-items: start;
 }
 
 .align-self-end {
@@ -25,9 +33,9 @@
 }
 
 .flex-column {
+  display: flex;
   flex-direction: column;
 }
-
 
 @for $i from 0 through 50 {
   .flex-#{$i} {

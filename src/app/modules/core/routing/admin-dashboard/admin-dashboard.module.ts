@@ -17,6 +17,13 @@ import { AdminDashboardComponent } from './admin-dashboard.component';
 import { ComponentsModule } from '../../components/components.module';
 import { CommonModule } from '@angular/common';
 import { NzTabsModule } from 'ng-zorro-antd/tabs';
+import { NzButtonModule } from 'ng-zorro-antd/button';
+import { NzTableModule } from 'ng-zorro-antd/table';
+import { NzDividerModule } from 'ng-zorro-antd/divider';
+import { NzOverflowModule } from 'ng-zorro-antd/cdk/overflow';
+import { NzDropDownModule } from 'ng-zorro-antd/dropdown';
+import { NzInputModule } from 'ng-zorro-antd/input';
+import { NzGridModule } from 'ng-zorro-antd/grid';
 
 @NgModule({
   declarations: [
@@ -40,6 +47,13 @@ import { NzTabsModule } from 'ng-zorro-antd/tabs';
     ComponentsModule,
     CommonModule,
     NzTabsModule,
+    NzButtonModule,
+    NzTableModule,
+    NzDividerModule,
+    NzOverflowModule,
+    NzDropDownModule,
+    NzInputModule,
+    NzGridModule,
   ],
 })
 export class AdminDashboardModule {}
