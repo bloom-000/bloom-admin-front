@@ -2,4 +2,37 @@
   <nz-breadcrumb-item>Dashboard</nz-breadcrumb-item>
   <nz-breadcrumb-item>Orders</nz-breadcrumb-item>
 </nz-breadcrumb>
-<p>orders</p>
+
+<nz-input-group class="flex-1 mr-24" [nzSuffix]="suffixIconSearch">
+  <input type="text" nz-input placeholder="Search orders..."/>
+</nz-input-group>
+<ng-template #suffixIconSearch>
+  <i nz-icon nzType="search"></i>
+</ng-template>
+
+<nz-table
+  class="mb-32 mt-12"
+  nzShowPagination>
+  <thead>
+  <tr>
+    <th>ID</th>
+    <th>Date</th>
+    <th>Customer</th>
+    <th>Status</th>
+    <th>Total</th>
+    <th nzWidth="3%"></th>
+  </tr>
+  </thead>
+  <tbody>
+  <tr *ngFor="let data of [1,2,3,4,5,6,7,8]">
+    <td>#{{data}}</td>
+    <td>15 May, 2021</td>
+    <td>Customer name</td>
+    <td>Pending</td>
+    <td>{{43 | currency}}</td>
+    <td>
+      <app-menu-button></app-menu-button>
+    </td>
+  </tr>
+  </tbody>
+</nz-table>
