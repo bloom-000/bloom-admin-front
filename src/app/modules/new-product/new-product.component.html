@@ -3,3 +3,56 @@
   <nz-breadcrumb-item>Products</nz-breadcrumb-item>
   <nz-breadcrumb-item>New</nz-breadcrumb-item>
 </nz-breadcrumb>
+
+<div nz-row nzJustify="end">
+  <button nz-button nzType="primary" class="btn-bg-secondary">
+    Save
+  </button>
+</div>
+
+<div nz-row nzGutter="64">
+  <div nz-col nzSpan="14">
+    <p class="mb-24 fs-6 semi-bold">Basic information</p>
+    <input nz-input placeholder="Name">
+    <nz-select nzAllowClear nzPlaceHolder="Category" class="w-100 mt-20">
+      <nz-option nzLabel="Face care" nzValue="FACE_CARE"></nz-option>
+      <nz-option nzLabel="Cosmetics" nzValue="COSMETICS"></nz-option>
+      <nz-option nzLabel="Body" nzValue="BODY"></nz-option>
+    </nz-select>
+    <nz-form-item>
+      <nz-form-control class="w-100 mt-20">
+        <nz-textarea-count [nzMaxCharacterCount]="100">
+          <textarea rows="6" nz-input placeholder="Description"></textarea>
+        </nz-textarea-count>
+      </nz-form-control>
+    </nz-form-item>
+
+    <p class="mb-12 mt-32 fs-6 semi-bold">Images</p>
+    <div nz-row nzAlign="middle" nzJustify="space-between">
+      <img
+        nz-col
+        src="assets/images/sign-in-background.jpg"
+        alt=""
+        class="product-image"/>
+      <div nz-row nzAlign="middle">
+        <input nz-input nz-col placeholder="Order" class="input-order">
+        <button nz-button nz-col nzSize="small" nzType="text" class="ml-12">
+          <i nz-icon nzType="close"></i>
+        </button>
+      </div>
+    </div>
+
+    <button nz-button nzType="primary" class="btn-bg-secondary mt-20">
+      Upload new image
+    </button>
+  </div>
+  <div nz-col nzSpan="10">
+    <p class="mb-24 fs-6 semi-bold">Pricing</p>
+    <input nz-input placeholder="Price">
+    <input nz-input placeholder="old price" class="mt-20">
+
+    <p class="mt-42 mb-20 fs-6 semi-bold">Inventory</p>
+    <input nz-input placeholder="Stock quantity">
+  </div>
+</div>
+

@@ -29,6 +29,7 @@ import { NewCategoryComponent } from '../../../new-category/new-category.compone
 import { CustomerComponent } from '../../../customer/customer.component';
 import { OrderComponent } from '../../../order/order.component';
 import { NewCouponComponent } from '../../../new-coupon/new-coupon.component';
+import { NzSelectModule } from 'ng-zorro-antd/select';
 
 @NgModule({
   declarations: [
@@ -64,6 +65,7 @@ import { NewCouponComponent } from '../../../new-coupon/new-coupon.component';
     NzDropDownModule,
     NzInputModule,
     NzGridModule,
+    NzSelectModule,
   ],
 })
 export class AdminDashboardModule {}

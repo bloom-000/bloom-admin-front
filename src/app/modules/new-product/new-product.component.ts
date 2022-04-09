@@ -5,4 +5,7 @@ import { Component } from '@angular/core';
   templateUrl: './new-product.component.html',
   styleUrls: ['./new-product.component.scss'],
 })
-export class NewProductComponent {}
+export class NewProductComponent {
+  formatterDollar = (value: number): string => `$ ${value}`;
+  parserDollar = (value: string): string => value.replace('$ ', '');
+}
