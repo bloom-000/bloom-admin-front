@@ -30,6 +30,11 @@ import { CustomerComponent } from '../../../customer/customer.component';
 import { OrderComponent } from '../../../order/order.component';
 import { NewCouponComponent } from '../../../new-coupon/new-coupon.component';
 import { NzSelectModule } from 'ng-zorro-antd/select';
+import { ReactiveFormsModule } from '@angular/forms';
+import { NzFormModule } from 'ng-zorro-antd/form';
+import { NgxsModule } from '@ngxs/store';
+import { NewCategoryState } from '../../../new-category/state/new-category.state';
+import { NzNotificationModule } from 'ng-zorro-antd/notification';
 
 @NgModule({
   declarations: [
@@ -50,6 +55,7 @@ import { NzSelectModule } from 'ng-zorro-antd/select';
     NewCouponComponent,
   ],
   imports: [
+    NgxsModule.forFeature([NewCategoryState]),
     AdminDashboardRoutingModule,
     NzLayoutModule,
     NzMenuModule,
@@ -66,6 +72,9 @@ import { NzSelectModule } from 'ng-zorro-antd/select';
     NzInputModule,
     NzGridModule,
     NzSelectModule,
+    ReactiveFormsModule,
+    NzFormModule,
+    NzNotificationModule,
   ],
 })
 export class AdminDashboardModule {}

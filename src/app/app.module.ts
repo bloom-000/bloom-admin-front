@@ -11,6 +11,7 @@ import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NgxsModule } from '@ngxs/store';
 import { AuthInterceptor } from './interceptors/token.interceptor';
+import { HttpWithCredentialsInterceptor } from './interceptors/http-with-credentials.interceptor';
 
 registerLocaleData(en);
 
@@ -29,6 +30,11 @@ registerLocaleData(en);
     {
       provide: HTTP_INTERCEPTORS,
       useClass: AuthInterceptor,
+      multi: true,
+    },
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: HttpWithCredentialsInterceptor,
       multi: true,
     },
   ],
