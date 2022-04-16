@@ -8,8 +8,11 @@
 </nz-button-group>
 <nz-dropdown-menu #dropdownMenu="nzDropdownMenu">
   <ul nz-menu>
-    <li nz-menu-item>Show details</li>
-    <li nz-menu-item>Edit</li>
-    <li nz-menu-item>Delete</li>
+    <li
+      nz-menu-item
+      *ngFor="let option of options"
+      (click)="option.click()">
+      {{option.label}}
+    </li>
   </ul>
 </nz-dropdown-menu>

@@ -9,6 +9,7 @@ import { DataPage } from '../model/common/data-page.interface';
 export type CreateCategoryFailure = 'CATEGORY_NAME_ALREADY_USED';
 export type UpdateCategoryFailure = 'CATEGORY_NOT_FOUND';
 export type DeleteCategoryFailure = 'CATEGORY_NOT_FOUND';
+export type GetCategoryFailure = 'CATEGORY_NOT_FOUND';
 
 @Injectable({ providedIn: 'root' })
 export class CategoryService {
@@ -19,17 +20,20 @@ export class CategoryService {
     description?: string;
   }): Observable<Category> {
     return this.apiService
-      .createCategory(payload)
+      .createCategory({
+        name: payload.name,
+        description: payload.description ? payload.description : undefined,
+      })
       .pipe(
         catchError((err: HttpErrorResponse) => throwError(err?.error?.message)),
       );
   }
 
-  getCategories(page: number): Observable<DataPage<Category>> {
-    return this.apiService.getCategories({
-      page,
-      pageSize: 20,
-    });
+  getCategories(
+    page: number,
+    pageSize: number,
+  ): Observable<DataPage<Category>> {
+    return this.apiService.getCategories({ page, pageSize });
   }
 
   getCategory(categoryId: number): Observable<Category> {

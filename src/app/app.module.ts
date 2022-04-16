@@ -12,6 +12,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NgxsModule } from '@ngxs/store';
 import { AuthInterceptor } from './interceptors/token.interceptor';
 import { HttpWithCredentialsInterceptor } from './interceptors/http-with-credentials.interceptor';
+import { NgxsRouterPluginModule } from '@ngxs/router-plugin';
 
 registerLocaleData(en);
 
@@ -19,6 +20,7 @@ registerLocaleData(en);
   declarations: [AppComponent],
   imports: [
     NgxsModule.forRoot([], { developmentMode: true }),
+    NgxsRouterPluginModule.forRoot(),
     BrowserModule,
     AppRoutingModule,
     FormsModule,

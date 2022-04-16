@@ -1,7 +1,11 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { Store } from '@ngxs/store';
+import { Select, Store } from '@ngxs/store';
 import { ActionNewCategory } from './state/new-category.actions';
+import { ActivatedRoute } from '@angular/router';
+import { NewCategoryState } from './state/new-category.state';
+import { Observable } from 'rxjs';
+import { Category } from '../../data/model/category/category.interface';
 
 @Component({
   selector: 'app-new-category',
@@ -12,7 +16,11 @@ export class NewCategoryComponent {
   constructor(
     private readonly formBuilder: FormBuilder,
     private readonly store: Store,
+    private readonly route: ActivatedRoute,
   ) {}
+
+  @Select(NewCategoryState.initialCategory)
+  initialCategory$!: Observable<Category>;
 
   form!: FormGroup;
 
@@ -21,6 +29,23 @@ export class NewCategoryComponent {
       name: ['', [Validators.required, Validators.maxLength(512)]],
       description: [''],
     });
+
+    this.route.queryParams.subscribe((params) => {
+      const categoryId = params['categoryId'];
+
+      this.store.dispatch(
+        ActionNewCategory.initialCategoryIdLoaded({
+          categoryId: parseInt(categoryId),
+        }),
+      );
+    });
+
+    this.initialCategory$.subscribe((initialCategory) =>
+      this.form.patchValue({
+        name: initialCategory?.name,
+        description: initialCategory?.description,
+      }),
+    );
   }
 
   onSavePressed() {
