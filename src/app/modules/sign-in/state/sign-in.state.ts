@@ -32,6 +32,9 @@ export class SignInState {
               'Invalid email or password',
             );
             break;
+          default:
+            this.notificationService.error('Error', 'Unknown error occurred');
+            break;
         }
       },
     });

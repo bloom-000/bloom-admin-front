@@ -36,6 +36,7 @@ import { NgxsModule } from '@ngxs/store';
 import { NewCategoryState } from '../../../new-category/state/new-category.state';
 import { NzNotificationModule } from 'ng-zorro-antd/notification';
 import { CategoriesState } from '../../../categories/state/categories.state';
+import { ProductsState } from '../../../products/state/products.state';
 
 @NgModule({
   declarations: [
@@ -56,7 +57,7 @@ import { CategoriesState } from '../../../categories/state/categories.state';
     NewCouponComponent,
   ],
   imports: [
-    NgxsModule.forFeature([NewCategoryState, CategoriesState]),
+    NgxsModule.forFeature([NewCategoryState, CategoriesState, ProductsState]),
     AdminDashboardRoutingModule,
     NzLayoutModule,
     NzMenuModule,

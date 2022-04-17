@@ -21,12 +21,19 @@
   </button>
 </div>
 
+<!--suppress TypeScriptValidateTypes -->
 <nz-table
   class="mb-32 mt-12"
+  #tableProducts
   nzShowPagination
   nzShowSizeChanger
-  [nzData]="listOfData"
-  (nzCurrentPageDataChange)="onCurrentPageDataChange($event)">
+  [nzFrontPagination]="false"
+  [nzData]="(products$ | async)?.data || []"
+  (nzPageIndexChange)="onCurrentPageChanged($event)"
+  (nzPageSizeChange)="onPageSizeChanged($event)"
+  [nzTotal]="(products$ | async)?.total || 0"
+  [nzPageSize]="(pageSize$ | async) || 0"
+>
   <thead>
   <tr>
     <th>Product</th>
@@ -37,24 +44,38 @@
   </tr>
   </thead>
   <tbody>
-  <tr *ngFor="let data of listOfData">
+  <tr *ngFor="let product of tableProducts.data">
     <td>
       <div class="flex">
         <img
           alt=""
           class="br-x product-image"
-          src="assets/images/sign-in-background.jpg"/>
+          [src]="composeImagePath(product.images[0]?.imagePath)"/>
         <div class="flex-column align-start justify-center ml-12">
-          <p class="mb-2 fs-5 semi-bold">Product name</p>
-          <p class="m-0 fs-4 element-secondary">Product description</p>
+          <p class="mb-2 fs-5 semi-bold">{{product.name}}</p>
+          <p class="m-0 fs-4 element-secondary">{{product.description}}</p>
         </div>
       </div>
     </td>
-    <td>Face Care</td>
-    <td>43 in stock</td>
-    <td>{{ 12 | currency }}</td>
+    <td>{{product.category.name}}</td>
+    <td>{{product.stockQuantity | number}} in stock</td>
+    <td>{{product.price | currency}}</td>
     <td>
-      <app-menu-button></app-menu-button>
+      <nz-button-group>
+        <button
+          nz-button
+          nzType="link"
+          nz-dropdown [nzDropdownMenu]="dropdownMenu">
+          <i nz-icon nzType="more" class="menu-button"></i>
+        </button>
+      </nz-button-group>
+      <nz-dropdown-menu #dropdownMenu="nzDropdownMenu">
+        <ul nz-menu>
+          <li nz-menu-item (click)="onShowProductDetailsPressed(product)">Show details</li>
+          <li nz-menu-item (click)="onUpdateProductPressed(product)">Update</li>
+          <li nz-menu-item (click)="onDeleteProductPressed(product)">Delete</li>
+        </ul>
+      </nz-dropdown-menu>
     </td>
   </tr>
   </tbody>

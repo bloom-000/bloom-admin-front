@@ -25,7 +25,6 @@ import { Navigate } from '@ngxs/router-plugin';
 
 interface CategoriesStateModel {
   categories: DataPage<Category>;
-  currentPage: number;
   pageSize: number;
 }
 
@@ -37,7 +36,6 @@ const CATEGORIES_STATE_TOKEN = new StateToken<CategoriesStateModel>(
   name: CATEGORIES_STATE_TOKEN,
   defaults: {
     categories: { data: [], total: 0 },
-    currentPage: 1,
     pageSize: 10,
   },
 })
@@ -49,14 +47,11 @@ export class CategoriesState {
     private readonly notificationService: NzNotificationService,
   ) {}
 
+  private currentPage = 1;
+
   @Selector([CATEGORIES_STATE_TOKEN])
   static categories(state: CategoriesStateModel) {
     return state.categories;
-  }
-
-  @Selector([CATEGORIES_STATE_TOKEN])
-  static currentPage(state: CategoriesStateModel) {
-    return state.currentPage;
   }
 
   @Selector([CATEGORIES_STATE_TOKEN])
@@ -67,7 +62,7 @@ export class CategoriesState {
   @Action(CategoriesInitialLoadRequested)
   async initialLoadRequested(ctx: StateContext<CategoriesStateModel>) {
     this.categoryService
-      .getCategories(ctx.getState().currentPage, ctx.getState().pageSize)
+      .getCategories(this.currentPage, ctx.getState().pageSize)
       .subscribe((res) => ctx?.patchState({ categories: res }));
   }
 
@@ -76,6 +71,8 @@ export class CategoriesState {
     ctx: StateContext<CategoriesStateModel>,
     action: CategoriesPageSizeChanged,
   ) {
+    this.currentPage = 1;
+
     this.categoryService
       .getCategories(1, action.payload.pageSize)
       .subscribe((res) =>
@@ -119,6 +116,9 @@ export class CategoriesState {
           case 'CATEGORY_NOT_FOUND':
             this.notificationService.error('Error', 'Category not found');
             break;
+          default:
+            this.notificationService.error('Error', 'Unknown error occurred');
+            break;
         }
       },
     });
@@ -131,8 +131,9 @@ export class CategoriesState {
   ) {
     this.categoryService
       .getCategories(action.payload.page, ctx.getState().pageSize)
-      .subscribe((res) =>
-        ctx?.patchState({ categories: res, currentPage: action.payload.page }),
-      );
+      .subscribe((res) => {
+        this.currentPage = action.payload.page;
+        ctx?.patchState({ categories: res });
+      });
   }
 }

@@ -65,6 +65,12 @@ export class NewCategoryState {
               case 'CATEGORY_NOT_FOUND':
                 this.notificationService.error('Error', 'Category not found');
                 break;
+              default:
+                this.notificationService.error(
+                  'Error',
+                  'Unknown error occurred',
+                );
+                break;
             }
           },
         });
@@ -78,6 +84,9 @@ export class NewCategoryState {
                 'Error',
                 'Category name is already in use',
               );
+              break;
+            default:
+              this.notificationService.error('Error', 'Unknown error occurred');
               break;
           }
         },
@@ -103,6 +112,9 @@ export class NewCategoryState {
               'Error',
               'Category name is already in use',
             );
+            break;
+          default:
+            this.notificationService.error('Error', 'Unknown error occurred');
             break;
         }
       },

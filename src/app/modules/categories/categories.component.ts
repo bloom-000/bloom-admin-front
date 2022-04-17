@@ -17,7 +17,6 @@ export class CategoriesComponent implements OnInit {
   @Select(CategoriesState.categories) categories$!: Observable<
     DataPage<Category>
   >;
-  @Select(CategoriesState.currentPage) currentPage$!: Observable<number>;
   @Select(CategoriesState.pageSize) pageSize$!: Observable<number>;
 
   ngOnInit(): void {

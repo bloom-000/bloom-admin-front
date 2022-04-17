@@ -7,6 +7,8 @@ import { Category } from '../model/category/category.interface';
 import { PageOptions } from '../model/common/page-options.interface';
 import { DataPage } from '../model/common/data-page.interface';
 import { UpdateCategoryBody } from '../model/category/update-category.body';
+import { CreateProductBody } from '../model/product/create-product.body';
+import { Product } from '../model/product/product.interface';
 
 const API_URL = 'http://localhost:3000';
 
@@ -66,5 +68,25 @@ export class ApiService {
 
   deleteCategory(categoryId: number): Observable<void> {
     return this.client.delete<void>(`${API_URL}/categories/${categoryId}`);
+  }
+
+  createProduct(body: CreateProductBody): Observable<Product> {
+    const formData = new FormData();
+
+    return this.client.post<Product>(`${API_URL}/products`, formData);
+  }
+
+  getProducts(pageOptions: PageOptions): Observable<DataPage<Product>> {
+    const params = new HttpParams()
+      .set('page', pageOptions.page)
+      .set('pageSize', pageOptions.pageSize);
+
+    return this.client.get<DataPage<Product>>(`${API_URL}/products`, {
+      params,
+    });
+  }
+
+  deleteProduct(productId: number): Observable<void> {
+    return this.client.delete<void>(`${API_URL}/products/${productId}`);
   }
 }

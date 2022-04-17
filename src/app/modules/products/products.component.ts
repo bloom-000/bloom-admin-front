@@ -1,80 +1,47 @@
-import { Component } from '@angular/core';
-
-interface Data {
-  id: number;
-  name: string;
-  age: number;
-  address: string;
-  disabled: boolean;
-}
+import { Component, OnInit } from '@angular/core';
+import { Select, Store } from '@ngxs/store';
+import { ActionProducts } from './state/products.actions';
+import { Observable } from 'rxjs';
+import { DataPage } from '../../data/model/common/data-page.interface';
+import { Product } from '../../data/model/product/product.interface';
+import { ProductsState } from './state/products.state';
 
 @Component({
   selector: 'app-products',
   templateUrl: './products.component.html',
   styleUrls: ['./products.component.scss'],
 })
-export class ProductsComponent {
-  checked = false;
-  indeterminate = false;
-  listOfData: readonly Data[] = [];
-  listOfCurrentPageData: readonly Data[] = [];
-  setOfCheckedId = new Set<number>();
+export class ProductsComponent implements OnInit {
+  constructor(private readonly store: Store) {}
 
-  updateCheckedSet(id: number, checked: boolean): void {
-    if (checked) {
-      this.setOfCheckedId.add(id);
-    } else {
-      this.setOfCheckedId.delete(id);
-    }
-  }
-
-  onCurrentPageDataChange(listOfCurrentPageData: readonly Data[]): void {
-    this.listOfCurrentPageData = listOfCurrentPageData;
-    this.refreshCheckedStatus();
-  }
-
-  refreshCheckedStatus(): void {
-    const listOfEnabledData = this.listOfCurrentPageData.filter(
-      ({ disabled }) => !disabled,
-    );
-    this.checked = listOfEnabledData.every(({ id }) =>
-      this.setOfCheckedId.has(id),
-    );
-    this.indeterminate =
-      listOfEnabledData.some(({ id }) => this.setOfCheckedId.has(id)) &&
-      !this.checked;
-  }
-
-  onItemChecked(id: number, checked: boolean): void {
-    this.updateCheckedSet(id, checked);
-    this.refreshCheckedStatus();
-  }
-
-  onAllChecked(checked: boolean): void {
-    this.listOfCurrentPageData
-      .filter(({ disabled }) => !disabled)
-      .forEach(({ id }) => this.updateCheckedSet(id, checked));
-    this.refreshCheckedStatus();
-  }
-
-  sendRequest(): void {
-    const requestData = this.listOfData.filter((data) =>
-      this.setOfCheckedId.has(data.id),
-    );
-    console.log(requestData);
-    setTimeout(() => {
-      this.setOfCheckedId.clear();
-      this.refreshCheckedStatus();
-    }, 1000);
-  }
+  @Select(ProductsState.products) products$!: Observable<DataPage<Product>>;
+  @Select(ProductsState.pageSize) pageSize$!: Observable<number>;
 
   ngOnInit(): void {
-    this.listOfData = new Array(100).fill(0).map((_, index) => ({
-      id: index,
-      name: `Edward King ${index}`,
-      age: 32,
-      address: `London, Park Lane no. ${index}`,
-      disabled: index % 2 === 0,
-    }));
+    this.store.dispatch(ActionProducts.initialLoadRequested());
+  }
+
+  onPageSizeChanged(pageSize: number) {
+    this.store.dispatch(ActionProducts.pageSizeChanged({ pageSize }));
+  }
+
+  onCurrentPageChanged(page: number) {
+    this.store.dispatch(ActionProducts.pageChanged({ page }));
+  }
+
+  onShowProductDetailsPressed(product: Product) {
+    this.store.dispatch(ActionProducts.showProductDetailsPressed(product));
+  }
+
+  onUpdateProductPressed(product: Product) {
+    this.store.dispatch(ActionProducts.updateProductPressed(product));
+  }
+
+  onDeleteProductPressed(product: Product) {
+    this.store.dispatch(ActionProducts.deleteProductPressed(product));
+  }
+
+  composeImagePath(path: string | undefined) {
+    return 'http://localhost:3000/' + path;
   }
 }
