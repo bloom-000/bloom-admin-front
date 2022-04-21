@@ -9,7 +9,6 @@ import {
 import { Injectable } from '@angular/core';
 import { DataPage } from '../../../data/model/common/data-page.interface';
 import { NzNotificationService } from 'ng-zorro-antd/notification';
-import { Navigate } from '@ngxs/router-plugin';
 import { Product } from '../../../data/model/product/product.interface';
 import {
   DeleteProductFailure,
@@ -20,8 +19,6 @@ import {
   ProductsInitialLoadRequested,
   ProductsPageChanged,
   ProductsPageSizeChanged,
-  ProductsShowDetailsPressed,
-  ProductsUpdatePressed,
 } from './products.actions';
 
 interface ProductsStateModel {
@@ -60,6 +57,8 @@ export class ProductsState {
 
   @Action(ProductsInitialLoadRequested)
   async initialLoadRequested(ctx: StateContext<ProductsStateModel>) {
+    this.currentPage = 1;
+
     this.productService
       .getProducts(this.currentPage, ctx.getState().pageSize)
       .subscribe((res) => ctx?.patchState({ products: res }));
@@ -77,24 +76,6 @@ export class ProductsState {
       .subscribe((res) =>
         ctx?.patchState({ products: res, pageSize: action.payload.pageSize }),
       );
-  }
-
-  @Action(ProductsShowDetailsPressed)
-  async productShowDetails(
-    ctx: StateContext<ProductsStateModel>,
-    action: ProductsShowDetailsPressed,
-  ) {
-    this.store.dispatch(new Navigate([`/products/${action.payload.id}`]));
-  }
-
-  @Action(ProductsUpdatePressed)
-  async productUpdatePressed(
-    ctx: StateContext<ProductsStateModel>,
-    action: ProductsUpdatePressed,
-  ) {
-    this.store.dispatch(
-      new Navigate(['/products/new'], { productId: action.payload.id }),
-    );
   }
 
   @Action(ProductsDeletePressed)

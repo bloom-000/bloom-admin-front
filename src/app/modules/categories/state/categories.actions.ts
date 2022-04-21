@@ -9,10 +9,6 @@ export class ActionCategories {
     return new CategoriesDeletePressed(payload);
   }
 
-  static updatePressed(payload: Category) {
-    return new CategoriesUpdatePressed(payload);
-  }
-
   static pageChanged(payload: { page: number }) {
     return new CategoriesPageChanged(payload);
   }
@@ -34,12 +30,6 @@ export class CategoriesPageSizeChanged {
 
 export class CategoriesDeletePressed {
   static readonly type = '[categories] delete';
-
-  constructor(public readonly payload: Category) {}
-}
-
-export class CategoriesUpdatePressed {
-  static readonly type = '[categories] update';
 
   constructor(public readonly payload: Category) {}
 }

@@ -5,6 +5,7 @@ import { CategoriesState } from './state/categories.state';
 import { Observable } from 'rxjs';
 import { DataPage } from '../../data/model/common/data-page.interface';
 import { Category } from '../../data/model/category/category.interface';
+import { Navigate } from '@ngxs/router-plugin';
 
 @Component({
   selector: 'app-categories',
@@ -32,7 +33,9 @@ export class CategoriesComponent implements OnInit {
   }
 
   onUpdateCategoryPressed(category: Category) {
-    this.store.dispatch(ActionCategories.updatePressed(category));
+    this.store.dispatch(
+      new Navigate(['/categories/new'], { categoryId: category.id }),
+    );
   }
 
   onDeleteCategoryPressed(category: Category) {

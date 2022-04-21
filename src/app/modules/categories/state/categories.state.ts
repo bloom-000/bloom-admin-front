@@ -16,12 +16,10 @@ import {
   CategoriesInitialLoadRequested,
   CategoriesPageChanged,
   CategoriesPageSizeChanged,
-  CategoriesUpdatePressed,
 } from './categories.actions';
 import { DataPage } from '../../../data/model/common/data-page.interface';
 import { Category } from '../../../data/model/category/category.interface';
 import { NzNotificationService } from 'ng-zorro-antd/notification';
-import { Navigate } from '@ngxs/router-plugin';
 
 interface CategoriesStateModel {
   categories: DataPage<Category>;
@@ -61,6 +59,8 @@ export class CategoriesState {
 
   @Action(CategoriesInitialLoadRequested)
   async initialLoadRequested(ctx: StateContext<CategoriesStateModel>) {
+    this.currentPage = 1;
+
     this.categoryService
       .getCategories(this.currentPage, ctx.getState().pageSize)
       .subscribe((res) => ctx?.patchState({ categories: res }));
@@ -78,18 +78,6 @@ export class CategoriesState {
       .subscribe((res) =>
         ctx?.patchState({ categories: res, pageSize: action.payload.pageSize }),
       );
-  }
-
-  @Action(CategoriesUpdatePressed)
-  async categoryUpdatePressed(
-    ctx: StateContext<CategoriesStateModel>,
-    action: CategoriesUpdatePressed,
-  ) {
-    this.store.dispatch(
-      new Navigate(['/categories/new'], {
-        categoryId: action.payload.id,
-      }),
-    );
   }
 
   @Action(CategoriesDeletePressed)

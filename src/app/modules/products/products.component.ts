@@ -5,6 +5,7 @@ import { Observable } from 'rxjs';
 import { DataPage } from '../../data/model/common/data-page.interface';
 import { Product } from '../../data/model/product/product.interface';
 import { ProductsState } from './state/products.state';
+import { Navigate } from '@ngxs/router-plugin';
 
 @Component({
   selector: 'app-products',
@@ -30,11 +31,13 @@ export class ProductsComponent implements OnInit {
   }
 
   onShowProductDetailsPressed(product: Product) {
-    this.store.dispatch(ActionProducts.showProductDetailsPressed(product));
+    this.store.dispatch(new Navigate([`/products/${product.id}`]));
   }
 
   onUpdateProductPressed(product: Product) {
-    this.store.dispatch(ActionProducts.updateProductPressed(product));
+    this.store.dispatch(
+      new Navigate(['/products/new'], { productId: product.id }),
+    );
   }
 
   onDeleteProductPressed(product: Product) {
