@@ -131,6 +131,8 @@ export class NewProductState {
 
   @Action(NewProductInit)
   init(ctx: StateContext<NewProductStateModel>, action: NewProductInit) {
+    ctx.patchState({ initialProduct: undefined });
+
     if (action.payload.productId) {
       this.productService.getProduct(action.payload.productId).subscribe({
         next: (res) => ctx.patchState({ initialProduct: res }),

@@ -1,6 +1,12 @@
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { Select, Store } from '@ngxs/store';
-import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
+import {
+  AbstractControl,
+  FormArray,
+  FormBuilder,
+  FormGroup,
+  Validators,
+} from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { NewProductState } from './state/new-product.state';
 import { Observable } from 'rxjs';
@@ -27,7 +33,7 @@ export class NewProductComponent implements OnInit {
   @Select(NewProductState.categories) categories?: Observable<Category[]>;
 
   form!: FormGroup;
-  productImageBuffers: (string | ArrayBuffer | null)[] = [null];
+  productImageSrcs: (string | ArrayBuffer | null)[] = [];
 
   @ViewChild('inputElement') input?: ElementRef<HTMLInputElement>;
   private lastProductImageClickIndex = -1;
@@ -47,7 +53,7 @@ export class NewProductComponent implements OnInit {
         '',
         [Validators.required, Validators.pattern(patternInteger)],
       ],
-      images: this.formBuilder.array([this.createEmptyProductImageForm()]),
+      images: this.formBuilder.array([]),
     });
 
     this.route.queryParams.subscribe((params) => {
@@ -60,7 +66,26 @@ export class NewProductComponent implements OnInit {
       );
     });
 
-    this.initialProduct$?.subscribe((initialProduct) =>
+    this.initialProduct$?.subscribe((initialProduct) => {
+      this.productImageSrcs = [];
+      this.imagesFormArray.clear();
+
+      if (initialProduct?.images?.length) {
+        for (const image of initialProduct.images) {
+          this.productImageSrcs.push(image.imagePath);
+          this.imagesFormArray.push(
+            this.createEmptyProductImageForm({
+              productImageId: image.id,
+              src: image.imagePath,
+              order: image.order.toString(),
+            }),
+          );
+        }
+      } else {
+        this.imagesFormArray.push(this.createEmptyProductImageForm());
+        this.productImageSrcs = [null];
+      }
+
       this.form.patchValue({
         name: initialProduct?.name,
         description: initialProduct?.description,
@@ -68,8 +93,8 @@ export class NewProductComponent implements OnInit {
         price: initialProduct?.price,
         oldPrice: initialProduct?.oldPrice,
         stockQuantity: initialProduct?.stockQuantity,
-      }),
-    );
+      });
+    });
   }
 
   onSavePressed() {
@@ -87,19 +112,16 @@ export class NewProductComponent implements OnInit {
   }
 
   onUploadNewImagePressed() {
-    this.productImageBuffers.push(null);
+    this.productImageSrcs.push(null);
     this.imagesFormArray.push(this.createEmptyProductImageForm());
   }
 
   onRemoveImageClick(index: number) {
-    if (
-      this.imagesFormArray.length < 2 ||
-      this.productImageBuffers.length < 2
-    ) {
+    if (this.imagesFormArray.length < 2 || this.productImageSrcs.length < 2) {
       return;
     }
 
-    this.productImageBuffers.splice(index, 1);
+    this.productImageSrcs.splice(index, 1);
     this.imagesFormArray.removeAt(index);
   }
 
@@ -111,7 +133,7 @@ export class NewProductComponent implements OnInit {
 
     const fileReader = new FileReader();
     fileReader.onload = () => {
-      this.productImageBuffers[this.lastProductImageClickIndex] =
+      this.productImageSrcs[this.lastProductImageClickIndex] =
         fileReader.result;
       this.imagesFormArray.controls[this.lastProductImageClickIndex].patchValue(
         { file },
@@ -120,10 +142,26 @@ export class NewProductComponent implements OnInit {
     fileReader.readAsDataURL(file);
   }
 
-  private createEmptyProductImageForm(): FormGroup {
+  private createEmptyProductImageForm(params?: {
+    productImageId?: number;
+    src?: string;
+    order?: string;
+    file?: File;
+  }): FormGroup {
     return this.formBuilder.group({
-      order: ['', [Validators.required, Validators.pattern(patternInteger)]],
-      file: [null, Validators.required],
+      productImageId: [params?.productImageId],
+      src: [params?.src],
+      order: [
+        params?.order || '',
+        [Validators.required, Validators.pattern(patternInteger)],
+      ],
+      file: [params?.file],
     });
+  }
+
+  resolveImage(imageSrc: string | ArrayBuffer, imageForm: AbstractControl) {
+    return imageForm.get('src')?.value && !imageForm.get('file')?.value
+      ? 'http://localhost:3000/' + imageSrc
+      : imageSrc;
   }
 }

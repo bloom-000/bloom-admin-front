@@ -75,6 +75,7 @@ export class ApiService {
   createProduct(body: CreateProductBody): Observable<Product> {
     const formData = new FormData();
 
+    // noinspection DuplicatedCode
     const imageOrder: { order: number; imageFilename: string }[] = [];
     for (const image of body.images) {
       if (!image.file) {
@@ -82,10 +83,7 @@ export class ApiService {
       }
       const filename = uuidV4();
       formData.append('images', image.file, filename);
-      imageOrder.push({
-        order: image.order,
-        imageFilename: filename,
-      });
+      imageOrder.push({ order: image.order, imageFilename: filename });
     }
     formData.set('imageOrder', JSON.stringify(imageOrder));
 
@@ -126,6 +124,32 @@ export class ApiService {
     body: UpdateProductBody,
   ): Observable<Product> {
     const formData = new FormData();
+
+    if (body.images) {
+      // noinspection DuplicatedCode
+      const imageOrder: { order: number; imageFilename: string }[] = [];
+      for (const image of body.images) {
+        if (!image.file) {
+          continue;
+        }
+        const filename = uuidV4();
+        formData.append('images', image.file, filename);
+        imageOrder.push({ order: image.order, imageFilename: filename });
+      }
+      formData.set('imageOrder', JSON.stringify(imageOrder));
+    }
+
+    if (body.name) formData.set('name', body.name);
+    if (body.categoryId) formData.set('categoryId', body.categoryId.toString());
+    if (body.description) formData.set('description', body.description);
+    if (body.price) formData.set('price', body.price.toString());
+    if (body.oldPrice) formData.set('oldPrice', body.oldPrice.toString());
+    if (body.stockQuantity)
+      formData.set('stockQuantity', body.stockQuantity.toString());
+    if (body.keepImageIds)
+      body.keepImageIds.forEach((e) =>
+        formData.append('keepImageIds', e.toString()),
+      );
 
     return this.client.patch<Product>(
       `${API_URL}/products/${productId}`,

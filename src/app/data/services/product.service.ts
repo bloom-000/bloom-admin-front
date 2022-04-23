@@ -62,11 +62,23 @@ export class ProductService {
       price?: number;
       oldPrice?: number;
       stockQuantity?: number;
-      images?: { file: File; order: number }[];
+      images?: { file?: File; order: number; productImageId?: number }[];
     },
   ): Observable<Product> {
+    const keepImageIds: number[] | undefined = params.images
+      ?.filter((e) => e.productImageId && !e.file)
+      ?.map((e) => e.productImageId!);
+
+    const images: { file: File; order: number }[] | undefined = params.images
+      ?.filter((e) => e.file)
+      ?.map((e) => ({ file: e.file!, order: e.order }));
+
     return this.apiService
-      .updateProduct(productId, params)
+      .updateProduct(productId, {
+        ...params,
+        keepImageIds,
+        images: images?.length ? images : undefined,
+      })
       .pipe(
         catchError((err: HttpErrorResponse) => throwError(err?.error?.message)),
       );

@@ -45,16 +45,13 @@
   </thead>
   <tbody>
   <tr *ngFor="let product of tableProducts.data">
-    <td>
-      <div class="flex">
-        <img
-          alt=""
-          class="br-x product-image"
-          [src]="composeImagePath(product.images[0]?.imagePath)"/>
-        <div class="flex-column align-start justify-center ml-12">
-          <p class="mb-2 fs-5 semi-bold">{{product.name}}</p>
-          <p class="m-0 fs-4 element-secondary">{{product.description}}</p>
-        </div>
+    <td class="flex">
+      <img alt=""
+           class="br-x product-image"
+           [src]="composeImagePath(product.images[0]?.imagePath)"/>
+      <div class="flex-column align-start justify-center ml-12">
+        <p class="mb-2 fs-5 semi-bold">{{product.name}}</p>
+        <p class="m-0 fs-4 element-secondary">{{product.description}}</p>
       </div>
     </td>
     <td>{{product.category.name}}</td>
@@ -62,10 +59,9 @@
     <td>{{product.price | currency}}</td>
     <td>
       <nz-button-group>
-        <button
-          nz-button
-          nzType="link"
-          nz-dropdown [nzDropdownMenu]="dropdownMenu">
+        <button nz-button
+                nzType="link"
+                nz-dropdown [nzDropdownMenu]="dropdownMenu">
           <i nz-icon nzType="more" class="menu-button"></i>
         </button>
       </nz-button-group>

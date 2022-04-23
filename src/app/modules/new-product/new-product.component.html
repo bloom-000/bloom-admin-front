@@ -59,22 +59,25 @@
          *ngFor="let imageForm of imagesFormArray.controls;let i = index;">
 
       <ng-container [formGroupName]="i"
-                    *ngLet="imageForm?.get('file')?.dirty && imageForm?.get('file')?.hasError('required') as imageDirty">
+                    *ngLet="form.dirty &&
+                            !imageForm?.get('file')?.value &&
+                            !imageForm?.get('src')?.value as imageDirty">
         <div (click)="onUploadClick(i)"
+             *ngLet="productImageSrcs[i] as imageSrc"
              [ngClass]="{
-               'upload-container-border': !productImageBuffers[i],
+               'upload-container-border': !imageSrc,
                'upload-container-border-error': imageDirty
              }"
              class="upload-container row center br-xs pointer">
-          <ng-container *ngIf="!productImageBuffers[i]">
+          <ng-container *ngIf="!imageSrc">
             <i class="upload-icon"
                nz-icon
                nzType="plus"
                [ngClass]="{'color-error': imageDirty}"></i>
             <div class="ml-5" [ngClass]="{'color-error': imageDirty}">Upload</div>
           </ng-container>
-          <img *ngIf="productImageBuffers[i]"
-               [src]="productImageBuffers[i]"
+          <img *ngIf="imageSrc"
+               [src]="resolveImage(imageSrc, imageForm)"
                class="product-image br-xs"
                alt=""/>
         </div>

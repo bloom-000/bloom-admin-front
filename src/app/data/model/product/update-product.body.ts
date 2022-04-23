@@ -1,3 +1,5 @@
 import { CreateProductBody } from './create-product.body';
 
-export type UpdateProductBody = Partial<CreateProductBody>;
+export type UpdateProductBody = Partial<CreateProductBody> & {
+  keepImageIds?: number[];
+};
