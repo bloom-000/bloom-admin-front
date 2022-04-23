@@ -9,6 +9,8 @@ import { DataPage } from '../model/common/data-page.interface';
 import { UpdateCategoryBody } from '../model/category/update-category.body';
 import { CreateProductBody } from '../model/product/create-product.body';
 import { Product } from '../model/product/product.interface';
+import { UpdateProductBody } from '../model/product/update-product.body';
+import { v4 as uuidV4 } from 'uuid';
 
 const API_URL = 'http://localhost:3000';
 
@@ -73,6 +75,27 @@ export class ApiService {
   createProduct(body: CreateProductBody): Observable<Product> {
     const formData = new FormData();
 
+    const imageOrder: { order: number; imageFilename: string }[] = [];
+    for (const image of body.images) {
+      if (!image.file) {
+        continue;
+      }
+      const filename = uuidV4();
+      formData.append('images', image.file, filename);
+      imageOrder.push({
+        order: image.order,
+        imageFilename: filename,
+      });
+    }
+    formData.set('imageOrder', JSON.stringify(imageOrder));
+
+    formData.set('name', body.name);
+    formData.set('categoryId', body.categoryId.toString());
+    if (body.description) formData.set('description', body.description);
+    formData.set('price', body.price.toString());
+    if (body.oldPrice) formData.set('oldPrice', body.oldPrice.toString());
+    formData.set('stockQuantity', body.stockQuantity.toString());
+
     return this.client.post<Product>(`${API_URL}/products`, formData);
   }
 
@@ -88,5 +111,25 @@ export class ApiService {
 
   deleteProduct(productId: number): Observable<void> {
     return this.client.delete<void>(`${API_URL}/products/${productId}`);
+  }
+
+  getProduct(productId: number) {
+    return this.client.get<Product>(`${API_URL}/products/${productId}`);
+  }
+
+  getAllCategories() {
+    return this.client.get<Category[]>(`${API_URL}/categories/all`);
+  }
+
+  updateProduct(
+    productId: number,
+    body: UpdateProductBody,
+  ): Observable<Product> {
+    const formData = new FormData();
+
+    return this.client.patch<Product>(
+      `${API_URL}/products/${productId}`,
+      formData,
+    );
   }
 }

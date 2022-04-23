@@ -59,4 +59,8 @@ export class CategoryService {
       .deleteCategory(categoryId)
       .pipe(catchError((err) => throwError(err?.error?.message)));
   }
+
+  getAllCategories(): Observable<Category[]> {
+    return this.apiService.getAllCategories();
+  }
 }

@@ -5,6 +5,5 @@ export interface CreateProductBody {
   price: number;
   oldPrice?: number;
   stockQuantity: number;
-  imageOrder: { order: number; imageFilename: string }[];
-  images: Blob[];
+  images: { file: File; order: number }[];
 }

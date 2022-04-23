@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Store } from '@ngxs/store';
 import { ActionSignIn } from './state/sign-in.actions';
+import { FormHelper } from '../core/util/form.helper';
 
 @Component({
   selector: 'app-sign-in',
@@ -12,6 +13,7 @@ export class SignInComponent implements OnInit {
   constructor(
     private readonly formBuilder: FormBuilder,
     private readonly store: Store,
+    private readonly formHelper: FormHelper,
   ) {}
 
   form!: FormGroup;
@@ -36,20 +38,16 @@ export class SignInComponent implements OnInit {
   }
 
   onFormSubmit() {
-    if (this.form.valid) {
-      this.store.dispatch(
-        ActionSignIn.signInPressed({
-          email: this.form.value.email,
-          password: this.form.value.password,
-        }),
-      );
-    } else {
-      Object.values(this.form.controls).forEach((control) => {
-        if (control.invalid) {
-          control.markAsDirty();
-          control.updateValueAndValidity({ onlySelf: true });
-        }
-      });
+    if (this.form.invalid) {
+      this.formHelper.markFormGroupDirty(this.form);
+      return;
     }
+
+    this.store.dispatch(
+      ActionSignIn.signInPressed({
+        email: this.form.value.email,
+        password: this.form.value.password,
+      }),
+    );
   }
 }

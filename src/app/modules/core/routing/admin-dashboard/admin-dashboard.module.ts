@@ -37,6 +37,9 @@ import { NewCategoryState } from '../../../new-category/state/new-category.state
 import { NzNotificationModule } from 'ng-zorro-antd/notification';
 import { CategoriesState } from '../../../categories/state/categories.state';
 import { ProductsState } from '../../../products/state/products.state';
+import { NewProductState } from '../../../new-product/state/new-product.state';
+import { NzMessageModule } from 'ng-zorro-antd/message';
+import { DirectivesModule } from '../../directives/directives.module';
 
 @NgModule({
   declarations: [
@@ -57,7 +60,12 @@ import { ProductsState } from '../../../products/state/products.state';
     NewCouponComponent,
   ],
   imports: [
-    NgxsModule.forFeature([NewCategoryState, CategoriesState, ProductsState]),
+    NgxsModule.forFeature([
+      NewCategoryState,
+      CategoriesState,
+      ProductsState,
+      NewProductState,
+    ]),
     AdminDashboardRoutingModule,
     NzLayoutModule,
     NzMenuModule,
@@ -77,6 +85,8 @@ import { ProductsState } from '../../../products/state/products.state';
     ReactiveFormsModule,
     NzFormModule,
     NzNotificationModule,
+    NzMessageModule,
+    DirectivesModule,
   ],
 })
 export class AdminDashboardModule {}

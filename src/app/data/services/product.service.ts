@@ -15,6 +15,7 @@ export type UpdateProductFailure =
   | 'CATEGORY_NOT_FOUND'
   | 'PRODUCT_NAME_ALREADY_USED'
   | 'PRODUCT_NOT_FOUND';
+export type GetProductFailure = 'PRODUCT_NOT_FOUND';
 
 @Injectable({ providedIn: 'root' })
 export class ProductService {
@@ -27,8 +28,7 @@ export class ProductService {
     price: number;
     oldPrice?: number;
     stockQuantity: number;
-    imageOrder: { order: number; imageFilename: string }[];
-    images: Blob[];
+    images: { file: File; order: number }[];
   }): Observable<Product> {
     return this.apiService
       .createProduct(params)
@@ -45,5 +45,30 @@ export class ProductService {
     return this.apiService
       .deleteProduct(productId)
       .pipe(catchError((err) => throwError(err?.error?.message)));
+  }
+
+  getProduct(productId: number): Observable<Product> {
+    return this.apiService
+      .getProduct(productId)
+      .pipe(catchError((err) => throwError(err?.error?.message)));
+  }
+
+  updateProduct(
+    productId: number,
+    params: {
+      name?: string;
+      categoryId?: number;
+      description?: string;
+      price?: number;
+      oldPrice?: number;
+      stockQuantity?: number;
+      images?: { file: File; order: number }[];
+    },
+  ): Observable<Product> {
+    return this.apiService
+      .updateProduct(productId, params)
+      .pipe(
+        catchError((err: HttpErrorResponse) => throwError(err?.error?.message)),
+      );
   }
 }

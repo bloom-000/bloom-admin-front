@@ -102,6 +102,9 @@ export class ProductsState {
           case 'PRODUCT_NOT_FOUND':
             this.notificationService.error('Error', 'Product not found');
             break;
+          default:
+            this.notificationService.error('Error', 'Unknown error');
+            break;
         }
       },
     });

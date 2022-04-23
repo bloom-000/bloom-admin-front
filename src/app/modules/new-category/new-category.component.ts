@@ -6,6 +6,7 @@ import { ActivatedRoute } from '@angular/router';
 import { NewCategoryState } from './state/new-category.state';
 import { Observable } from 'rxjs';
 import { Category } from '../../data/model/category/category.interface';
+import { FormHelper } from '../core/util/form.helper';
 
 @Component({
   selector: 'app-new-category',
@@ -17,6 +18,7 @@ export class NewCategoryComponent {
     private readonly formBuilder: FormBuilder,
     private readonly store: Store,
     private readonly route: ActivatedRoute,
+    private readonly formHelper: FormHelper,
   ) {}
 
   @Select(NewCategoryState.initialCategory)
@@ -49,20 +51,16 @@ export class NewCategoryComponent {
   }
 
   onSavePressed() {
-    if (this.form.valid) {
-      this.store.dispatch(
-        ActionNewCategory.savePressed({
-          name: this.form.value.name,
-          description: this.form.value.description,
-        }),
-      );
-    } else {
-      Object.values(this.form.controls).forEach((control) => {
-        if (control.invalid) {
-          control.markAsDirty();
-          control.updateValueAndValidity({ onlySelf: true });
-        }
-      });
+    if (this.form.invalid) {
+      this.formHelper.markFormGroupDirty(this.form);
+      return;
     }
+
+    this.store.dispatch(
+      ActionNewCategory.savePressed({
+        name: this.form.value.name,
+        description: this.form.value.description,
+      }),
+    );
   }
 }

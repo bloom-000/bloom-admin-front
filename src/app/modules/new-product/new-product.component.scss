@@ -1,10 +1,26 @@
 .product-image {
-  width: 90px;
-  height: 90px;
-  border-radius: 2px;
+  width: 100%;
+  height: 100%;
   object-fit: cover;
 }
 
 .input-order {
   max-width: 120px;
+}
+
+.upload-container-border {
+  border: 1px dashed #ccc;
+}
+
+.upload-container-border-error {
+  border-color: red;
+}
+
+.upload-container {
+  width: 90px;
+  height: 90px;
+}
+
+input[type="file"] {
+  display: none;
 }
