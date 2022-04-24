@@ -42,6 +42,8 @@ import { NzMessageModule } from 'ng-zorro-antd/message';
 import { DirectivesModule } from '../../directives/directives.module';
 import { RolesComponent } from '../../../roles/role.component';
 import { RolesState } from '../../../roles/state/roles.state';
+import { NewRoleState } from '../../../new-role/state/new-role.state';
+import { NewRoleComponent } from '../../../new-role/new-role.component';
 
 @NgModule({
   declarations: [
@@ -61,6 +63,7 @@ import { RolesState } from '../../../roles/state/roles.state';
     OrderComponent,
     NewCouponComponent,
     RolesComponent,
+    NewRoleComponent,
   ],
   imports: [
     NgxsModule.forFeature([
@@ -69,6 +72,7 @@ import { RolesState } from '../../../roles/state/roles.state';
       ProductsState,
       NewProductState,
       RolesState,
+      NewRoleState,
     ]),
     AdminDashboardRoutingModule,
     NzLayoutModule,

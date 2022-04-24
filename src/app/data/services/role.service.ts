@@ -5,6 +5,13 @@ import { DataPage } from '../model/common/data-page.interface';
 import { Role } from '../model/role/role.interface';
 import { HttpErrorResponse } from '@angular/common/http';
 
+export type UpdateRoleFailure =
+  | 'ROLE_NOT_FOUND'
+  | 'PERMISSION_NOT_FOUND'
+  | 'ROLE_ALREADY_EXISTS';
+export type CreateRoleFailure = 'PERMISSION_NOT_FOUND' | 'ROLE_ALREADY_EXISTS';
+export type GetRoleFailure = 'ROLE_NOT_FOUND';
+
 @Injectable({ providedIn: 'root' })
 export class RoleService {
   constructor(private readonly apiService: ApiService) {}
@@ -20,6 +27,25 @@ export class RoleService {
   }): Observable<Role> {
     return this.apiService
       .createRole(params)
+      .pipe(
+        catchError((err: HttpErrorResponse) => throwError(err?.error?.message)),
+      );
+  }
+
+  updateRole(
+    id: number,
+    params: { name?: string; description?: string; permissionIds?: number[] },
+  ) {
+    return this.apiService
+      .updateRole(id, params)
+      .pipe(
+        catchError((err: HttpErrorResponse) => throwError(err?.error?.message)),
+      );
+  }
+
+  getRole(roleId: number): Observable<Role> {
+    return this.apiService
+      .getRole(roleId)
       .pipe(
         catchError((err: HttpErrorResponse) => throwError(err?.error?.message)),
       );

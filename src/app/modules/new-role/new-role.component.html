@@ -1,0 +1,49 @@
+<nz-breadcrumb class="pb-16">
+  <nz-breadcrumb-item>Dashboard</nz-breadcrumb-item>
+  <nz-breadcrumb-item>Roles</nz-breadcrumb-item>
+  <nz-breadcrumb-item>New</nz-breadcrumb-item>
+</nz-breadcrumb>
+
+<div nz-row nzJustify="end">
+  <button
+    nz-button nzType="primary"
+    class="btn-bg-secondary"
+    (click)="onSavePressed()">
+    Save
+  </button>
+</div>
+
+<div nz-row nzGutter="64">
+  <div nz-col nzSpan="14">
+    <p class="mb-24 fs-6 semi-bold">Basic information</p>
+    <form [formGroup]="form" class="w-100">
+      <nz-form-item>
+        <nz-form-control nzErrorTip="Field is required">
+          <input nz-input placeholder="Name" formControlName="name"/>
+        </nz-form-control>
+      </nz-form-item>
+      <nz-form-item>
+        <nz-form-control nzErrorTip="Field is required">
+          <nz-select nzMode="tags"
+                     nzPlaceHolder="Permissions"
+                     formControlName="permissionIds">
+            <nz-option *ngFor="let permission of permissions$ | async"
+                       [nzLabel]="permission.permission"
+                       [nzValue]="permission.id"></nz-option>
+          </nz-select>
+        </nz-form-control>
+      </nz-form-item>
+      <nz-form-item>
+        <nz-form-control nzErrorTip="Field is required">
+           <textarea
+             nz-input
+             placeholder="Description"
+             type="text"
+             [nzAutosize]="{ minRows: 4, maxRows: 6 }"
+             formControlName="description"></textarea>
+        </nz-form-control>
+      </nz-form-item>
+    </form>
+  </div>
+</div>
+

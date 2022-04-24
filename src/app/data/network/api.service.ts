@@ -13,6 +13,8 @@ import { UpdateProductBody } from '../model/product/update-product.body';
 import { v4 as uuidV4 } from 'uuid';
 import { Role } from '../model/role/role.interface';
 import { CreateRoleBody } from '../model/role/create-role.body';
+import { UpdateRoleBody } from '../model/role/update-role.body';
+import { Permission } from '../model/role/permission.interface';
 
 const API_URL = 'http://localhost:3000';
 
@@ -169,5 +171,17 @@ export class ApiService {
 
   createRole(body: CreateRoleBody): Observable<Role> {
     return this.client.post<Role>(`${API_URL}/roles`, body);
+  }
+
+  updateRole(roleId: number, body: UpdateRoleBody): Observable<Role> {
+    return this.client.patch<Role>(`${API_URL}/roles/${roleId}`, body);
+  }
+
+  getRole(roleId: number): Observable<Role> {
+    return this.client.get<Role>(`${API_URL}/roles/${roleId}`);
+  }
+
+  getPermissions(): Observable<Permission[]> {
+    return this.client.get<Permission[]>(`${API_URL}/permissions`);
   }
 }

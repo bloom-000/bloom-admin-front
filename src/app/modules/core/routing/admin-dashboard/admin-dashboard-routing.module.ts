@@ -16,6 +16,7 @@ import { CustomerComponent } from '../../../customer/customer.component';
 import { OrderComponent } from '../../../order/order.component';
 import { NewCouponComponent } from '../../../new-coupon/new-coupon.component';
 import { RolesComponent } from '../../../roles/role.component';
+import { NewRoleComponent } from '../../../new-role/new-role.component';
 
 const routes: Routes = [
   {
@@ -38,6 +39,7 @@ const routes: Routes = [
       { path: 'orders/order', component: OrderComponent },
       { path: 'coupons/new', component: NewCouponComponent },
       { path: 'roles', component: RolesComponent },
+      { path: 'roles/new', component: NewRoleComponent },
     ],
   },
 ];

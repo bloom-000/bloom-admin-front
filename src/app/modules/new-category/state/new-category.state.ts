@@ -108,10 +108,7 @@ export class NewCategoryState {
       error: (err: GetCategoryFailure) => {
         switch (err) {
           case 'CATEGORY_NOT_FOUND':
-            this.notificationService.error(
-              'Error',
-              'Category name is already in use',
-            );
+            this.notificationService.error('Error', 'Category not found');
             break;
           default:
             this.notificationService.error('Error', 'Unknown error occurred');
