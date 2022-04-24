@@ -11,6 +11,8 @@ import { CreateProductBody } from '../model/product/create-product.body';
 import { Product } from '../model/product/product.interface';
 import { UpdateProductBody } from '../model/product/update-product.body';
 import { v4 as uuidV4 } from 'uuid';
+import { Role } from '../model/role/role.interface';
+import { CreateRoleBody } from '../model/role/create-role.body';
 
 const API_URL = 'http://localhost:3000';
 
@@ -155,5 +157,17 @@ export class ApiService {
       `${API_URL}/products/${productId}`,
       formData,
     );
+  }
+
+  getRoles(pageOptions: PageOptions): Observable<DataPage<Role>> {
+    const params = new HttpParams()
+      .set('page', pageOptions.page)
+      .set('pageSize', pageOptions.pageSize);
+
+    return this.client.get<DataPage<Role>>(`${API_URL}/roles`, { params });
+  }
+
+  createRole(body: CreateRoleBody): Observable<Role> {
+    return this.client.post<Role>(`${API_URL}/roles`, body);
   }
 }

@@ -40,6 +40,8 @@ import { ProductsState } from '../../../products/state/products.state';
 import { NewProductState } from '../../../new-product/state/new-product.state';
 import { NzMessageModule } from 'ng-zorro-antd/message';
 import { DirectivesModule } from '../../directives/directives.module';
+import { RolesComponent } from '../../../roles/role.component';
+import { RolesState } from '../../../roles/state/roles.state';
 
 @NgModule({
   declarations: [
@@ -58,6 +60,7 @@ import { DirectivesModule } from '../../directives/directives.module';
     CustomerComponent,
     OrderComponent,
     NewCouponComponent,
+    RolesComponent,
   ],
   imports: [
     NgxsModule.forFeature([
@@ -65,6 +68,7 @@ import { DirectivesModule } from '../../directives/directives.module';
       CategoriesState,
       ProductsState,
       NewProductState,
+      RolesState,
     ]),
     AdminDashboardRoutingModule,
     NzLayoutModule,

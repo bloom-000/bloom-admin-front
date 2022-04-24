@@ -1,0 +1,64 @@
+<nz-breadcrumb class="pb-16">
+  <nz-breadcrumb-item>Dashboard</nz-breadcrumb-item>
+  <nz-breadcrumb-item>Roles</nz-breadcrumb-item>
+</nz-breadcrumb>
+
+<div class="flex">
+  <nz-input-group class="flex-1 mr-24" [nzSuffix]="suffixIconSearch">
+    <input type="text" nz-input placeholder="Search roles..."/>
+  </nz-input-group>
+  <ng-template #suffixIconSearch>
+    <i nz-icon nzType="search"></i>
+  </ng-template>
+
+  <button
+    nz-button
+    nzType="primary"
+    class="btn-bg-secondary"
+    routerLink="/roles/new"
+  >
+    New role
+  </button>
+</div>
+
+<!--suppress TypeScriptValidateTypes -->
+<nz-table
+  class="mb-32 mt-12"
+  #tableRoles
+  nzShowPagination
+  nzShowSizeChanger
+  [nzFrontPagination]="false"
+  (nzPageIndexChange)="onCurrentPageChanged($event)"
+  (nzPageSizeChange)="onPageSizeChanged($event)"
+  [nzTotal]="(roles$ | async)?.total ?? 0"
+  [nzPageSize]="(pageSize$ | async) || 0"
+  [nzData]="(roles$ | async)?.data || []">
+  <thead>
+  <tr>
+    <th nzWidth="14%">Role</th>
+    <th>Description</th>
+    <th nzWidth="3%"></th>
+  </tr>
+  </thead>
+  <tbody>
+  <tr *ngFor="let role of tableRoles.data">
+    <td class="mb-2">{{role.name}}</td>
+    <td>{{role.description}}</td>
+    <td>
+      <nz-button-group>
+        <button
+          nz-button
+          nzType="link"
+          nz-dropdown [nzDropdownMenu]="dropdownMenu">
+          <i nz-icon nzType="more" class="menu-button"></i>
+        </button>
+      </nz-button-group>
+      <nz-dropdown-menu #dropdownMenu="nzDropdownMenu">
+        <ul nz-menu>
+          <li nz-menu-item (click)="onUpdateRolePressed(role)">Update</li>
+        </ul>
+      </nz-dropdown-menu>
+    </td>
+  </tr>
+  </tbody>
+</nz-table>

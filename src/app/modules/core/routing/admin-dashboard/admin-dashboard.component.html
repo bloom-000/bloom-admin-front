@@ -19,6 +19,15 @@
              class="pr-10">
         <span>Dashboard</span>
       </li>
+      <li nz-menu-item routerLink="roles"
+          [nzSelected]="currentPath == 'roles'">
+        <img src="../../../../../assets/icons/shield.svg"
+             width="24"
+             height="24"
+             alt=""
+             class="pr-10">
+        <span>Roles</span>
+      </li>
       <li class="nav-section-header">Content</li>
       <li nz-menu-item routerLink="products"
           [nzSelected]="currentPath == 'products'">
