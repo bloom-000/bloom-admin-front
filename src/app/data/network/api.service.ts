@@ -23,23 +23,26 @@ export class ApiService {
   constructor(private readonly client: HttpClient) {}
 
   signIn(body: SignInBody): Observable<void> {
-    return this.client.post<void>(`${API_URL}/authentication/sign-in`, body);
+    return this.client.post<void>(
+      `${API_URL}/authentication/admin/sign-in`,
+      body,
+    );
   }
 
   signOut(): Observable<void> {
     return this.client.post<void>(
-      `${API_URL}/authentication/sign-out`,
+      `${API_URL}/authentication/admin/sign-out`,
       undefined,
     );
   }
 
   getAuthenticationStatus(): Observable<void> {
-    return this.client.get<void>(`${API_URL}/authentication/status`);
+    return this.client.get<void>(`${API_URL}/authentication/admin/status`);
   }
 
   refreshToken(): Observable<void> {
     return this.client.post<void>(
-      `${API_URL}/authentication/refresh`,
+      `${API_URL}/authentication/admin/refresh`,
       undefined,
     );
   }
