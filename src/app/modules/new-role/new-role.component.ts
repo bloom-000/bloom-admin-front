@@ -37,9 +37,7 @@ export class NewRoleComponent {
     this.route.queryParams.subscribe((params) => {
       const roleId = params['roleId'];
 
-      this.store.dispatch(
-        ActionNewRole.initialRoleIdLoaded({ roleId: parseInt(roleId) }),
-      );
+      this.store.dispatch(ActionNewRole.initialRoleIdLoaded({ roleId }));
     });
 
     this.initialRole$.subscribe((initialRole) =>

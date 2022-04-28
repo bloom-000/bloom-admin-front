@@ -61,12 +61,12 @@ export class ApiService {
     });
   }
 
-  getCategory(categoryId: number): Observable<Category> {
+  getCategory(categoryId: string): Observable<Category> {
     return this.client.get<Category>(`${API_URL}/categories/${categoryId}`);
   }
 
   updateCategory(
-    categoryId: number,
+    categoryId: string,
     body: UpdateCategoryBody,
   ): Observable<Category> {
     return this.client.patch<Category>(
@@ -75,7 +75,7 @@ export class ApiService {
     );
   }
 
-  deleteCategory(categoryId: number): Observable<void> {
+  deleteCategory(categoryId: string): Observable<void> {
     return this.client.delete<void>(`${API_URL}/categories/${categoryId}`);
   }
 
@@ -114,11 +114,11 @@ export class ApiService {
     });
   }
 
-  deleteProduct(productId: number): Observable<void> {
+  deleteProduct(productId: string): Observable<void> {
     return this.client.delete<void>(`${API_URL}/products/${productId}`);
   }
 
-  getProduct(productId: number) {
+  getProduct(productId: string) {
     return this.client.get<Product>(`${API_URL}/products/${productId}`);
   }
 
@@ -127,7 +127,7 @@ export class ApiService {
   }
 
   updateProduct(
-    productId: number,
+    productId: string,
     body: UpdateProductBody,
   ): Observable<Product> {
     const formData = new FormData();
@@ -176,11 +176,11 @@ export class ApiService {
     return this.client.post<Role>(`${API_URL}/roles`, body);
   }
 
-  updateRole(roleId: number, body: UpdateRoleBody): Observable<Role> {
+  updateRole(roleId: string, body: UpdateRoleBody): Observable<Role> {
     return this.client.patch<Role>(`${API_URL}/roles/${roleId}`, body);
   }
 
-  getRole(roleId: number): Observable<Role> {
+  getRole(roleId: string): Observable<Role> {
     return this.client.get<Role>(`${API_URL}/roles/${roleId}`);
   }
 

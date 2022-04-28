@@ -34,7 +34,7 @@ export class AuthService {
     );
   }
 
-  refreshToken(): Observable<any> {
+  refreshToken(): Observable<void> {
     return this.apiService.refreshToken();
   }
 }

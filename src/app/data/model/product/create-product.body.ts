@@ -1,6 +1,6 @@
 export interface CreateProductBody {
   name: string;
-  categoryId: number;
+  categoryId: string;
   description?: string;
   price: number;
   oldPrice?: number;

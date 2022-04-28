@@ -3,7 +3,7 @@ export class ActionNewProduct {
     return new NewProductSavePressed(payload);
   }
 
-  static init(payload: { productId: number }) {
+  static init(payload: { productId: string }) {
     return new NewProductInit(payload);
   }
 }
@@ -11,12 +11,12 @@ export class ActionNewProduct {
 export class NewProductInit {
   static readonly type = '[new-product] init';
 
-  constructor(public readonly payload: { productId: number }) {}
+  constructor(public readonly payload: { productId: string }) {}
 }
 
 interface NewProductSavePressedPayload {
   name: string;
-  categoryId: number;
+  categoryId: string;
   description?: string;
   price: number;
   oldPrice?: number;

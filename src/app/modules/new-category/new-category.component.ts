@@ -36,9 +36,7 @@ export class NewCategoryComponent {
       const categoryId = params['categoryId'];
 
       this.store.dispatch(
-        ActionNewCategory.initialCategoryIdLoaded({
-          categoryId: parseInt(categoryId),
-        }),
+        ActionNewCategory.initialCategoryIdLoaded({ categoryId }),
       );
     });
 

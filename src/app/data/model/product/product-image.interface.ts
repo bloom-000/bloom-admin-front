@@ -2,7 +2,7 @@ export interface ProductImage {
   createdAt: string;
   updatedAt: string;
   deletedAt?: string;
-  id: number;
+  id: string;
   imagePath: string;
   order: number;
 }

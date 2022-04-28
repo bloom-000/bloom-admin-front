@@ -36,14 +36,14 @@ export class CategoryService {
     return this.apiService.getCategories({ page, pageSize });
   }
 
-  getCategory(categoryId: number): Observable<Category> {
+  getCategory(categoryId: string): Observable<Category> {
     return this.apiService
       .getCategory(categoryId)
       .pipe(catchError((err) => throwError(err?.error?.message)));
   }
 
   updateCategory(
-    categoryId: number,
+    categoryId: string,
     payload: {
       name?: string;
       description?: string;
@@ -54,7 +54,7 @@ export class CategoryService {
       .pipe(catchError((err) => throwError(err?.error?.message)));
   }
 
-  deleteCategory(categoryId: number): Observable<void> {
+  deleteCategory(categoryId: string): Observable<void> {
     return this.apiService
       .deleteCategory(categoryId)
       .pipe(catchError((err) => throwError(err?.error?.message)));

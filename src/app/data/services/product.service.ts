@@ -23,7 +23,7 @@ export class ProductService {
 
   createProduct(params: {
     name: string;
-    categoryId: number;
+    categoryId: string;
     description?: string;
     price: number;
     oldPrice?: number;
@@ -41,31 +41,31 @@ export class ProductService {
     return this.apiService.getProducts({ page, pageSize });
   }
 
-  deleteProduct(productId: number): Observable<void> {
+  deleteProduct(productId: string): Observable<void> {
     return this.apiService
       .deleteProduct(productId)
       .pipe(catchError((err) => throwError(err?.error?.message)));
   }
 
-  getProduct(productId: number): Observable<Product> {
+  getProduct(productId: string): Observable<Product> {
     return this.apiService
       .getProduct(productId)
       .pipe(catchError((err) => throwError(err?.error?.message)));
   }
 
   updateProduct(
-    productId: number,
+    productId: string,
     params: {
       name?: string;
-      categoryId?: number;
+      categoryId?: string;
       description?: string;
       price?: number;
       oldPrice?: number;
       stockQuantity?: number;
-      images?: { file?: File; order: number; productImageId?: number }[];
+      images?: { file?: File; order: number; productImageId?: string }[];
     },
   ): Observable<Product> {
-    const keepImageIds: number[] | undefined = params.images
+    const keepImageIds: string[] | undefined = params.images
       ?.filter((e) => e.productImageId && !e.file)
       ?.map((e) => e.productImageId!);
 

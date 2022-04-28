@@ -5,7 +5,7 @@ export interface Product {
   createdAt: string;
   updatedAt: string;
   deletedAt?: string;
-  id: number;
+  id: string;
   name: string;
   description?: string;
   price: number;

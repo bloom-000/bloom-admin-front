@@ -11,7 +11,7 @@ export class ActionNewRole {
 interface NewRoleSavePressedPayload {
   name: string;
   description: string;
-  permissionIds: number[];
+  permissionIds: string[];
 }
 export class NewRoleSavePressed {
   static readonly type = '[new-role] save';
@@ -20,7 +20,7 @@ export class NewRoleSavePressed {
 }
 
 interface NewRoleInitialRoleIdLoadedPayload {
-  roleId: number;
+  roleId: string;
 }
 export class NewRoleInitialRoleIdLoaded {
   static readonly type = '[new-role] initial role id loaded';

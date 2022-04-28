@@ -23,7 +23,7 @@ export class RoleService {
   createRole(params: {
     name: string;
     description: string;
-    permissionIds: number[];
+    permissionIds: string[];
   }): Observable<Role> {
     return this.apiService
       .createRole(params)
@@ -33,17 +33,17 @@ export class RoleService {
   }
 
   updateRole(
-    id: number,
-    params: { name?: string; description?: string; permissionIds?: number[] },
+    roleId: string,
+    params: { name?: string; description?: string; permissionIds?: string[] },
   ) {
     return this.apiService
-      .updateRole(id, params)
+      .updateRole(roleId, params)
       .pipe(
         catchError((err: HttpErrorResponse) => throwError(err?.error?.message)),
       );
   }
 
-  getRole(roleId: number): Observable<Role> {
+  getRole(roleId: string): Observable<Role> {
     return this.apiService
       .getRole(roleId)
       .pipe(

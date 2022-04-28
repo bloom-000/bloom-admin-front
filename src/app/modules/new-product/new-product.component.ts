@@ -59,11 +59,7 @@ export class NewProductComponent implements OnInit {
     this.route.queryParams.subscribe((params) => {
       const productId = params['productId'];
 
-      this.store.dispatch(
-        ActionNewProduct.init({
-          productId: parseInt(productId),
-        }),
-      );
+      this.store.dispatch(ActionNewProduct.init({ productId }));
     });
 
     this.initialProduct$?.subscribe((initialProduct) => {
@@ -143,7 +139,7 @@ export class NewProductComponent implements OnInit {
   }
 
   private createEmptyProductImageForm(params?: {
-    productImageId?: number;
+    productImageId?: string;
     src?: string;
     order?: string;
     file?: File;

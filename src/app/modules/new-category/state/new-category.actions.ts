@@ -21,7 +21,7 @@ export class NewCategorySavePressed {
 }
 
 interface NewCategoryInitialCategoryIdLoadedPayload {
-  categoryId: number;
+  categoryId: string;
 }
 export class NewCategoryInitialCategoryIdLoaded {
   static readonly type = '[new-category] initial category id loaded';
