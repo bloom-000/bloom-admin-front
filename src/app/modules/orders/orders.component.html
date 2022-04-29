@@ -10,9 +10,18 @@
   <i nz-icon nzType="search"></i>
 </ng-template>
 
+<!--suppress TypeScriptValidateTypes -->
 <nz-table
   class="mb-32 mt-12"
-  nzShowPagination>
+  #tableOrders
+  nzShowPagination
+  nzShowSizeChanger
+  [nzFrontPagination]="false"
+  (nzPageIndexChange)="onCurrentPageChanged($event)"
+  (nzPageSizeChange)="onPageSizeChanged($event)"
+  [nzTotal]="(orders$ | async)?.total ?? 0"
+  [nzPageSize]="(pageSize$ | async) ?? 0"
+  [nzData]="(orders$ | async)?.data ?? []">
   <thead>
   <tr>
     <th>ID</th>
@@ -24,14 +33,26 @@
   </tr>
   </thead>
   <tbody>
-  <tr *ngFor="let data of [1,2,3,4,5,6,7,8]">
-    <td>#{{data}}</td>
-    <td>15 May, 2021</td>
-    <td>Customer name</td>
-    <td>Pending</td>
-    <td>{{43 | currency}}</td>
+  <tr *ngFor="let order of tableOrders.data">
+    <td>#{{order.id}}</td>
+    <td>{{order.createdAt | date}}</td>
+    <td>{{order.user?.fullName ?? ''}}</td>
+    <td>{{order.status}}</td>
+    <td>{{order.itemTotal + order.deliveryFee | currency}}</td>
     <td>
-      <app-menu-button></app-menu-button>
+      <nz-button-group>
+        <button
+          nz-button
+          nzType="link"
+          nz-dropdown [nzDropdownMenu]="dropdownMenu">
+          <i nz-icon nzType="more" class="menu-button"></i>
+        </button>
+      </nz-button-group>
+      <nz-dropdown-menu #dropdownMenu="nzDropdownMenu">
+        <ul nz-menu>
+          <li nz-menu-item (click)="onShowOrderDetailsPressed(order)">Show details</li>
+        </ul>
+      </nz-dropdown-menu>
     </td>
   </tr>
   </tbody>

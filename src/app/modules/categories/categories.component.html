@@ -31,8 +31,8 @@
   (nzPageIndexChange)="onCurrentPageChanged($event)"
   (nzPageSizeChange)="onPageSizeChanged($event)"
   [nzTotal]="(categories$ | async)?.total ?? 0"
-  [nzPageSize]="(pageSize$ | async) || 0"
-  [nzData]="(categories$ | async)?.data || []">
+  [nzPageSize]="(pageSize$ | async) ?? 0"
+  [nzData]="(categories$ | async)?.data ?? []">
   <thead>
   <tr>
     <th>Category</th>

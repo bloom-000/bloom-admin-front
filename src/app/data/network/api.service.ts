@@ -15,6 +15,7 @@ import { Role } from '../model/role/role.interface';
 import { CreateRoleBody } from '../model/role/create-role.body';
 import { UpdateRoleBody } from '../model/role/update-role.body';
 import { Permission } from '../model/role/permission.interface';
+import { Order } from '../model/order/order.interface';
 
 const API_URL = 'http://localhost:3000';
 
@@ -186,5 +187,13 @@ export class ApiService {
 
   getPermissions(): Observable<Permission[]> {
     return this.client.get<Permission[]>(`${API_URL}/permissions`);
+  }
+
+  getOrders(param: PageOptions): Observable<DataPage<Order>> {
+    const params = new HttpParams()
+      .set('page', param.page)
+      .set('pageSize', param.pageSize);
+
+    return this.client.get<DataPage<Order>>(`${API_URL}/orders`, { params });
   }
 }
