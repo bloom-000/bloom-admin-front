@@ -36,10 +36,10 @@ const routes: Routes = [
       { path: 'products/new', component: NewProductComponent },
       { path: 'categories/new', component: NewCategoryComponent },
       { path: 'customers/customer', component: CustomerComponent },
-      { path: 'orders/order', component: OrderComponent },
       { path: 'coupons/new', component: NewCouponComponent },
       { path: 'roles', component: RolesComponent },
       { path: 'roles/new', component: NewRoleComponent },
+      { path: 'orders/:orderId', component: OrderComponent },
     ],
   },
 ];

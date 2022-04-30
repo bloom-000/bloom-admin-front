@@ -11,6 +11,7 @@ export interface Product {
   price: number;
   oldPrice?: number;
   stockQuantity: number;
+  primaryImagePath: string;
   images: ProductImage[];
   category: Category;
 }

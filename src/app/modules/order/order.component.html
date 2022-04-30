@@ -1,5 +1,145 @@
 <nz-breadcrumb class="pb-16">
   <nz-breadcrumb-item>Dashboard</nz-breadcrumb-item>
-  <nz-breadcrumb-item>Customers</nz-breadcrumb-item>
-  <nz-breadcrumb-item>Customer name</nz-breadcrumb-item>
+  <nz-breadcrumb-item>Orders</nz-breadcrumb-item>
+  <nz-breadcrumb-item>#{{(order$ | async)?.id}}</nz-breadcrumb-item>
 </nz-breadcrumb>
+
+<div nz-row
+     nzAlign="middle"
+     nzJustify="space-between"
+     *ngLet="(order$ | async) as order">
+  <nz-row nzAlign="middle">
+  <span nz-col>
+    {{order?.createdAt | date: 'MMMM dd, yyyy \'at\' hh:mm'}}
+  </span>
+    <div nz-col class="top-details-divider"></div>
+    <span nz-col>
+    {{order?.products?.length ?? 0 | number}} item
+  </span>
+    <div nz-col class="top-details-divider"></div>
+    <span nz-col>
+    Total {{(totalPrice$ | async) ?? 0 | currency}}
+  </span>
+    <div nz-col class="top-details-divider"></div>
+    <span nz-col>
+    {{order?.status}}
+  </span>
+  </nz-row>
+  <button
+    nz-col
+    nz-button
+    nzType="primary"
+    class="btn-bg-secondary"
+    (click)="onDeletePressed()"
+  >
+    Delete
+  </button>
+</div>
+
+<div nz-row
+     [nzGutter]="16"
+     class="mt-32"
+     *ngLet="(order$ | async) as order">
+  <div nz-col [nzSpan]="15">
+    <div class="bg-secondary-container pv-16 ph-18 br-xs">
+      <div nz-row
+           nzAlign="middle"
+           nzJustify="space-between"
+           class="mb-12"
+           *ngFor="let orderProduct of order?.products">
+        <div nz-row nzAlign="middle">
+          <img nz-image
+               [nzSrc]="composeImagePath(orderProduct)"
+               alt=""
+               width="70"
+               height="70"
+               class="br-xs"
+               src="">
+          <p class="m-0 ml-12 fs-5">
+            {{orderProduct.product.name}}
+          </p>
+        </div>
+
+        <div nz-row nzGutter="26">
+          <p class="m-0 ml-12 fs-5 semi-bold" nz-col>
+            {{orderProduct.product.price | currency}}
+          </p>
+          <p class="m-0 ml-12 fs-5 semi-bold" nz-col>
+            {{orderProduct.quantity | number}}x
+          </p>
+          <p class="m-0 ml-12 fs-5 semi-bold" nz-col>
+            {{orderProduct.quantity * orderProduct.product.price | currency}}
+          </p>
+        </div>
+      </div>
+      <nz-divider style="background-color: black"></nz-divider>
+      <p class="fs-6">Subtotal</p>
+      <div nz-row nzJustify="space-between">
+        <span>Products</span>
+        <span>{{(productsPrice$ | async) | currency}}</span>
+      </div>
+      <div nz-row nzJustify="space-between" class="mt-4">
+        <span>Delivery fee</span>
+        <span>{{order?.deliveryFee | currency}}</span>
+      </div>
+      <div nz-row nzJustify="space-between" class="mt-16">
+        <span class="fs-6 semi-bold">Total</span>
+        <span>{{(totalPrice$ | async) | currency}}</span>
+      </div>
+    </div>
+  </div>
+  <div nz-col [nzSpan]="9">
+    <div class="bg-secondary-container pv-16 ph-18 br-xs">
+      <p class="fs-6 semi-bold">Customer</p>
+      <div nz-row nzAlign="middle">
+        <img nz-col
+             nz-image
+             width="86px"
+             height="86px"
+             alt=""
+             nzSrc=""
+             src="">
+        <div class="ml-16">
+          <div class="fs-5 semi-bold">{{order?.user?.fullName}}</div>
+          <div>{{order?.user?.email}}</div>
+        </div>
+      </div>
+    </div>
+    <div class="bg-secondary-container pv-16 ph-18 br-xs mt-16">
+      <p class="fs-6 semi-bold">Delivery address</p>
+      <div class="fs-5 semi-bold">
+        {{order?.deliveryAddress?.fullName}}
+      </div>
+      <div class="fs-5 semi-bold">
+        {{order?.deliveryAddress?.phoneNumber}}
+      </div>
+
+      <div class="fs-5 mt-12">
+        <span nz-popover="" [nzPopoverContent]="templateCountry">
+          {{order?.deliveryAddress?.country}}
+        </span>
+        <ng-template #templateCountry>
+          Country
+        </ng-template>
+        <span nz-popover="" [nzPopoverContent]="templateCity">
+          {{order?.deliveryAddress?.city}}
+        </span>
+        <ng-template #templateCity>
+          City
+        </ng-template>
+        <span nz-popover="" [nzPopoverContent]="templatePostalCode">
+          {{order?.deliveryAddress?.postalCode}}
+        </span>
+        <ng-template #templatePostalCode>
+          Postal code
+        </ng-template>
+        <span nz-popover="" [nzPopoverContent]="templateStreetAddress">
+          {{order?.deliveryAddress?.streetAddress}}
+        </span>
+        <ng-template #templateStreetAddress>
+          Street address
+        </ng-template>
+      </div>
+    </div>
+  </div>
+</div>

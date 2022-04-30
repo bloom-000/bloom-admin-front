@@ -1,4 +1,6 @@
 import { User } from '../user/user.interface';
+import { DeliveryAddress } from './delivery-address.interface';
+import { OrderProduct } from './order-product.interface';
 
 export interface Order {
   id: string;
@@ -12,4 +14,6 @@ export interface Order {
   itemTotal: number;
   status: string;
   user: User;
+  deliveryAddress: DeliveryAddress;
+  products: OrderProduct[];
 }

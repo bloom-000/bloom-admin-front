@@ -46,6 +46,9 @@ import { NewRoleState } from '../../../new-role/state/new-role.state';
 import { NewRoleComponent } from '../../../new-role/new-role.component';
 import { OrdersState } from '../../../orders/state/orders.state';
 import { CustomersState } from '../../../customers/state/customers.state';
+import { OrderState } from '../../../order/state/order.state';
+import { NzImageModule } from 'ng-zorro-antd/image';
+import { NzPopoverModule } from 'ng-zorro-antd/popover';
 
 @NgModule({
   declarations: [
@@ -77,6 +80,7 @@ import { CustomersState } from '../../../customers/state/customers.state';
       NewRoleState,
       OrdersState,
       CustomersState,
+      OrderState,
     ]),
     AdminDashboardRoutingModule,
     NzLayoutModule,
@@ -99,6 +103,8 @@ import { CustomersState } from '../../../customers/state/customers.state';
     NzNotificationModule,
     NzMessageModule,
     DirectivesModule,
+    NzImageModule,
+    NzPopoverModule,
   ],
 })
 export class AdminDashboardModule {}

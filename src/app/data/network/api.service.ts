@@ -209,4 +209,8 @@ export class ApiService {
 
     return this.client.get<DataPage<User>>(`${API_URL}/users`, { params });
   }
+
+  getOrderDetails(orderId: string): Observable<Order> {
+    return this.client.get<Order>(`${API_URL}/orders/${orderId}`);
+  }
 }
