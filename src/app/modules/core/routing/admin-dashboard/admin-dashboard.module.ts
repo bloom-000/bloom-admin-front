@@ -45,6 +45,7 @@ import { RolesState } from '../../../roles/state/roles.state';
 import { NewRoleState } from '../../../new-role/state/new-role.state';
 import { NewRoleComponent } from '../../../new-role/new-role.component';
 import { OrdersState } from '../../../orders/state/orders.state';
+import { CustomersState } from '../../../customers/state/customers.state';
 
 @NgModule({
   declarations: [
@@ -75,6 +76,7 @@ import { OrdersState } from '../../../orders/state/orders.state';
       RolesState,
       NewRoleState,
       OrdersState,
+      CustomersState,
     ]),
     AdminDashboardRoutingModule,
     NzLayoutModule,

@@ -16,8 +16,10 @@ import { CreateRoleBody } from '../model/role/create-role.body';
 import { UpdateRoleBody } from '../model/role/update-role.body';
 import { Permission } from '../model/role/permission.interface';
 import { Order } from '../model/order/order.interface';
+import { User } from '../model/user/user.interface';
+import { Constants } from '../../common/constants';
 
-const API_URL = 'http://localhost:3000';
+const API_URL = Constants.API_URL;
 
 @Injectable({ providedIn: 'root' })
 export class ApiService {
@@ -195,5 +197,16 @@ export class ApiService {
       .set('pageSize', param.pageSize);
 
     return this.client.get<DataPage<Order>>(`${API_URL}/orders`, { params });
+  }
+
+  getUsers(param: {
+    pageSize: number;
+    page: number;
+  }): Observable<DataPage<User>> {
+    const params = new HttpParams()
+      .set('page', param.page)
+      .set('pageSize', param.pageSize);
+
+    return this.client.get<DataPage<User>>(`${API_URL}/users`, { params });
   }
 }

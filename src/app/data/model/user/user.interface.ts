@@ -3,4 +3,7 @@ export interface User {
   fullName: string;
   gender: string;
   email: string;
+  createdAt: Date;
+  updatedAt: Date;
+  deletedAt: Date;
 }
