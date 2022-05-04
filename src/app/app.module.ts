@@ -13,6 +13,8 @@ import { NgxsModule } from '@ngxs/store';
 import { AuthInterceptor } from './interceptors/token.interceptor';
 import { HttpWithCredentialsInterceptor } from './interceptors/http-with-credentials.interceptor';
 import { NgxsRouterPluginModule } from '@ngxs/router-plugin';
+import { NgxEchartsModule } from 'ngx-echarts';
+import * as echarts from 'echarts';
 
 registerLocaleData(en);
 
@@ -21,6 +23,7 @@ registerLocaleData(en);
   imports: [
     NgxsModule.forRoot([], { developmentMode: true }),
     NgxsRouterPluginModule.forRoot(),
+    NgxEchartsModule.forRoot({ echarts }),
     BrowserModule,
     AppRoutingModule,
     FormsModule,

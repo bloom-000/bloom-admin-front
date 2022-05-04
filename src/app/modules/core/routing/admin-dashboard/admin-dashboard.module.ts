@@ -49,6 +49,8 @@ import { CustomersState } from '../../../customers/state/customers.state';
 import { OrderState } from '../../../order/state/order.state';
 import { NzImageModule } from 'ng-zorro-antd/image';
 import { NzPopoverModule } from 'ng-zorro-antd/popover';
+import { NgxEchartsModule } from 'ngx-echarts';
+import { DashboardState } from '../../../dashboard/state/dashboard.state';
 
 @NgModule({
   declarations: [
@@ -81,6 +83,7 @@ import { NzPopoverModule } from 'ng-zorro-antd/popover';
       OrdersState,
       CustomersState,
       OrderState,
+      DashboardState,
     ]),
     AdminDashboardRoutingModule,
     NzLayoutModule,
@@ -105,6 +108,7 @@ import { NzPopoverModule } from 'ng-zorro-antd/popover';
     DirectivesModule,
     NzImageModule,
     NzPopoverModule,
+    NgxEchartsModule,
   ],
 })
 export class AdminDashboardModule {}

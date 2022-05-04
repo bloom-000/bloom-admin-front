@@ -18,6 +18,9 @@ import { Permission } from '../model/role/permission.interface';
 import { Order } from '../model/order/order.interface';
 import { User } from '../model/user/user.interface';
 import { Constants } from '../../common/constants';
+import { StatUser } from '../model/statistics/stat-user.interface';
+import { MonthlyIncomeStats } from '../model/statistics/monthly-income-stats.interface';
+import { StatIncome } from '../model/statistics/stat-income.interface';
 
 const API_URL = Constants.API_URL;
 
@@ -212,5 +215,38 @@ export class ApiService {
 
   getOrderDetails(orderId: string): Observable<Order> {
     return this.client.get<Order>(`${API_URL}/orders/${orderId}`);
+  }
+
+  getRegisteredUserStatsForLastDays(
+    forLastDaysCount: number,
+  ): Observable<StatUser[]> {
+    const params = new HttpParams().set('forLastDaysCount', forLastDaysCount);
+
+    return this.client.get<StatUser[]>(
+      `${API_URL}/statistics/registered-users`,
+      { params },
+    );
+  }
+
+  getTotalRegisteredUsersCount(): Observable<{ count: number }> {
+    return this.client.get<{ count: number }>(
+      `${API_URL}/statistics/registered-users/total`,
+    );
+  }
+
+  getMonthlyIncomeStats(): Observable<MonthlyIncomeStats> {
+    return this.client.get<MonthlyIncomeStats>(
+      `${API_URL}/statistics/income/month`,
+    );
+  }
+
+  getIncomeStats(startDate: Date, endDate: Date): Observable<StatIncome[]> {
+    const params = new HttpParams()
+      .set('startDate', startDate.toISOString())
+      .set('endDate', endDate.toISOString());
+
+    return this.client.get<StatIncome[]>(`${API_URL}/statistics/income`, {
+      params,
+    });
   }
 }

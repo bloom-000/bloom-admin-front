@@ -18,9 +18,9 @@ export class AuthInterceptor implements HttpInterceptor {
 
   intercept(req: HttpRequest<any>, next: HttpHandler): any {
     if (
-      req.url.indexOf('/authentication/refresh') > -1 ||
-      req.url.indexOf('/authentication/status') > -1 ||
-      req.url.indexOf('/authentication/sign-in') > -1
+      req.url.indexOf('/authentication/admin/refresh') > -1 ||
+      req.url.indexOf('/authentication/admin/status') > -1 ||
+      req.url.indexOf('/authentication/admin/sign-in') > -1
     ) {
       return next.handle(req);
     }
